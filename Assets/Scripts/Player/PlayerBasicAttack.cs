@@ -38,7 +38,7 @@ public class PlayerBasicAttack : Projectile
 
         if (collision.gameObject.tag == "Enemy")
         {
-            Instantiate(Resources.Load<GameObject>("Prefabs/Explosion"), transform.position, Quaternion.identity);
+            Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

@@ -28,13 +28,14 @@ public class PickupItem : PauseableObject
     /// <summary>
     /// Unity on collision enter 2d event
     /// </summary>
-    /// <param name="collision"></param>
+    /// <param name="collision">collision object</param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player" && !hasBeenAdded)
         {
             hasBeenAdded = true;
             GameManager.Instance.Player.GetComponent<Player>().PlayerInventory.AddItem(self);
+            AudioManager.Instance.PlayGamePlaySoundEffect(GamePlaySoundEffect.ItemPickup);
             Destroy(gameObject);
         }
     }

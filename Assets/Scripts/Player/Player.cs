@@ -60,11 +60,11 @@ public class Player : PauseableObject
             //update player movement
             PlayerMovement();
 
-            //check states
-            CheckStates();
-
             //update player animations
             PlayerAnimations();
+
+            //check states
+            CheckStates();
 
             //update health bar
             healthBar.fillAmount = health / 100f;
@@ -178,13 +178,13 @@ public class Player : PauseableObject
             //the floating state
             case PlayerState.Floating:
                 //apply floating motion based on direction
-                if (InputManager.Instance.GetAxis(PlayerAction.MoveHorizontal) > 0f)
+                if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) > 0f)
                 {
                     facingLeft = false;
                     currentHorizontalSpeed = Mathf.Clamp(rBody.velocity.x + Constants.PLAYER_HORIZONTAL_ACCELERATION * Time.deltaTime, -Constants.PLAYER_MAX_HORIZONTAL_SPEED, Constants.PLAYER_MAX_HORIZONTAL_SPEED);
                     rBody.velocity = new Vector2(currentHorizontalSpeed, rBody.velocity.y);
                 }
-                else if (InputManager.Instance.GetAxis(PlayerAction.MoveHorizontal) < 0f)
+                else if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) < 0f)
                 {
                     facingLeft = true;
                     currentHorizontalSpeed = Mathf.Clamp(rBody.velocity.x - Constants.PLAYER_HORIZONTAL_ACCELERATION * Time.deltaTime, -Constants.PLAYER_MAX_HORIZONTAL_SPEED, Constants.PLAYER_MAX_HORIZONTAL_SPEED);
@@ -201,8 +201,24 @@ public class Player : PauseableObject
             ////the attacking state
             //case PlayerState.Attacking:
             //    break;
-            //case PlayerState.Hurt:
-            //    break;
+            case PlayerState.Hurt:
+                //apply running motion based on direction
+                if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) > 0)
+                {
+                    facingLeft = false;
+                    currentHorizontalSpeed = Mathf.Clamp(rBody.velocity.x + Constants.PLAYER_HORIZONTAL_ACCELERATION * Time.deltaTime, -Constants.PLAYER_MAX_HORIZONTAL_SPEED, Constants.PLAYER_MAX_HORIZONTAL_SPEED);
+                    rBody.velocity = new Vector2(currentHorizontalSpeed, rBody.velocity.y);
+                }
+                else if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) < 0)
+                {
+                    facingLeft = true;
+                    currentHorizontalSpeed = Mathf.Clamp(rBody.velocity.x - Constants.PLAYER_HORIZONTAL_ACCELERATION * Time.deltaTime, -Constants.PLAYER_MAX_HORIZONTAL_SPEED, Constants.PLAYER_MAX_HORIZONTAL_SPEED);
+                    rBody.velocity = new Vector2(currentHorizontalSpeed, rBody.velocity.y);
+                }
+
+                //Audio
+                AudioManager.Instance.PlayGamePlaySoundEffect(GamePlaySoundEffect.PlayerHurt);
+                break;
             default:
                 break;
         }
@@ -221,6 +237,81 @@ public class Player : PauseableObject
         if (InputManager.Instance.GetButtonDown(PlayerAction.FirePrimary))
         {
             BasicAttack();
+        }
+    }
+
+    /// <summary>
+    /// handles player animations
+    /// </summary>
+    void PlayerAnimations()
+    {
+        switch (playerState)
+        {
+            case PlayerState.Idle:
+                if (anim.GetCurrentAnimatorStateInfo(0).IsName("PlayerHurt"))
+                {
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+                    {
+                        anim.Play("PlayerIdle");
+                    }
+                }
+                else
+                {
+                    anim.Play("PlayerIdle");
+                }
+                break;
+
+            case PlayerState.Running:
+                if (anim.GetCurrentAnimatorStateInfo(0).IsName("PlayerHurt"))
+                {
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+                    {
+                        anim.Play("PlayerRunning");
+                    }
+                }
+                else
+                {
+                    anim.Play("PlayerRunning");
+                }
+                break;
+
+            case PlayerState.Jumping:
+                anim.Play("PlayerJump");
+                break;
+
+            //case PlayerState.MidAirJumping:
+            //    break;
+            //case PlayerState.Ledge:
+            //    break;
+            //case PlayerState.ClimbingUp:
+            //    break;
+            //case PlayerState.ClimbingDown:
+            //    break;
+
+            case PlayerState.Floating:
+                if (anim.GetCurrentAnimatorStateInfo(0).IsName("PlayerJump") || anim.GetCurrentAnimatorStateInfo(0).IsName("PlayerHurt"))
+                {
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+                    {
+                        anim.Play("PlayerFloat");
+                    }
+                }
+                else
+                {
+                    anim.Play("PlayerFloat");
+                }
+                break;
+
+            case PlayerState.Landing:
+                break;
+            //case PlayerState.Attacking:
+            //    break;
+            case PlayerState.Hurt:
+                anim.Play("PlayerHurt");
+                break;
+
+            default:
+                break;
         }
     }
 
@@ -318,62 +409,29 @@ public class Player : PauseableObject
 
             //case PlayerState.Attacking:
             //    break;
-            //case PlayerState.Hurt:
-            //    break;
-
-            default:
-                break;
-        }
-    }
-
-    /// <summary>
-    /// handles player animations
-    /// </summary>
-    void PlayerAnimations()
-    {
-        switch (playerState)
-        {
-            case PlayerState.Idle:
-                anim.Play("PlayerIdle");
-                break;
-
-            case PlayerState.Running:
-                anim.Play("PlayerRunning");
-                break;
-
-            case PlayerState.Jumping:
-                anim.Play("PlayerJump");
-                break;
-
-            //case PlayerState.MidAirJumping:
-            //    break;
-            //case PlayerState.Ledge:
-            //    break;
-            //case PlayerState.ClimbingUp:
-            //    break;
-            //case PlayerState.ClimbingDown:
-            //    break;
-
-            case PlayerState.Floating:
-                if (anim.GetCurrentAnimatorStateInfo(0).IsName("PlayerJump"))
+            case PlayerState.Hurt:
+                //idle
+                if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) == 0f)
                 {
-                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
-                    {
-                        anim.Play("PlayerFloat");
-                    }
+                    playerState = PlayerState.Idle;
                 }
-                else
+                //running
+                else if (InputManager.Instance.GetAxis(PlayerAction.MoveHorizontal) > 0 || InputManager.Instance.GetAxis(PlayerAction.MoveHorizontal) < 0 && isGrounded)
                 {
-                    anim.Play("PlayerFloat");
+                    playerState = PlayerState.Running;
+                }
+                //jumping
+                else if (InputManager.Instance.GetButton(PlayerAction.Jump) && isGrounded)
+                {
+                    playerState = PlayerState.Jumping;
+                }
+                //run/slide off platform
+                else if (rBody.velocity.y < -0.1f)
+                {
+                    isGrounded = false;
+                    playerState = PlayerState.Floating;
                 }
                 break;
-
-            case PlayerState.Landing:
-                break;
-            //case PlayerState.Attacking:
-            //    break;
-            //case PlayerState.Hurt:
-            //    break;
 
             default:
                 break;
@@ -402,6 +460,15 @@ public class Player : PauseableObject
         else
         {
             attack.GetComponent<PlayerBasicAttack>().InitializePlayerBasicProjectile(new Vector2(5f, 0f), Constants.PLAYER_BASIC_ATTACK_BULLET_LIFETIME);
+        }
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "EnemyBullet")
+        {
+            playerState = PlayerState.Hurt;
         }
     }
 }

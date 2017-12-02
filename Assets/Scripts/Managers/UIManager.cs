@@ -5,6 +5,9 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// UIManager handles all the dynamic ui elements
+/// </summary>
 class UIManager
 {
     #region Fields
@@ -12,8 +15,13 @@ class UIManager
     //singleton instance of class
     static UIManager instance;
 
-    public Dictionary<ItemType, Sprite> inventoryImages;// = new Dictionary<ItemType, Sprite>();
+    //dictionary for inventory ui images
+    public Dictionary<ItemType, Sprite> inventoryImages;
 
+    //pause game menu
+    PauseGameMenu pauseMenu;
+
+    //main player menu
     InventoryUI inventoryDisplay;
 
     #endregion
@@ -25,12 +33,10 @@ class UIManager
     /// </summary>
     private UIManager()
     {
-        //effectsDict = (Resources.LoadAll<AudioClip>("Audio/Sounds")).ToDictionary(s => s.name);
+        //initialize the inventory images dictionary
         inventoryImages = new Dictionary<ItemType, Sprite>()
         {
             { ItemType.HealthPotion, Resources.Load<Sprite>("Graphics/Items/HealthPotion") },
-            //{ ItemType.HolyGrailQuestItem, Resources.Load<Sprite>("Graphics/Items/HealthPotion") },
-            //{ ItemType.PizzaCutterQuestItem, Resources.Load<Sprite>("Graphics/Items/HealthPotion") },
             { ItemType.EnergyShield, Resources.Load<Sprite>("Graphics/Items/EnergyShieldItem") },
             { ItemType.KeyPartPickupHandle, Resources.Load<Sprite>("Graphics/Items/KeyHandle") },
             { ItemType.KeyPartPickupShaft, Resources.Load<Sprite>("Graphics/Items/KeyShaft") },
@@ -56,6 +62,10 @@ class UIManager
     public InventoryUI PlayerInventoryUI
     { get; private set; }
 
+
+    public PauseGameMenu PauseMenu
+    { get; private set; }
+
     #endregion
 
     #region Methods
@@ -63,12 +73,23 @@ class UIManager
     public void Update()
     {
         //escape closes all ui
-        if (Input.GetKeyDown(KeyCode.Escape))
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    CloseUI();
+        //}
+
+        //pause game menu
+        if (InputManager.Instance.GetButtonDown(PlayerAction.PauseGame) && !PauseMenu)
+        {
+            CloseUI();
+            PauseMenu = MonoBehaviour.Instantiate(Resources.Load<PauseGameMenu>("Prefabs/PauseMenuCanvas"), Vector3.zero, Quaternion.identity);
+        }
+        else if (PauseMenu && InputManager.Instance.GetButtonDown(PlayerAction.PauseGame))
         {
             CloseUI();
         }
 
-        //inventory
+        //player menu
         if (InputManager.Instance.GetButtonDown(PlayerAction.ViewInventory) && !PlayerInventoryUI)
         {
             CloseUI();
@@ -80,8 +101,19 @@ class UIManager
         }
     }
 
+
+    /// <summary>
+    /// Closes all ui
+    /// </summary>
     void CloseUI()
     {
+        //pause menu
+        if (PauseMenu)
+        {
+            MonoBehaviour.Destroy(PauseMenu.gameObject);
+        }
+
+        //player menu
         if (PlayerInventoryUI)
         {
             MonoBehaviour.Destroy(PlayerInventoryUI.gameObject);
