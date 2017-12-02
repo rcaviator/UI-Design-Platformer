@@ -8,6 +8,8 @@ public class Projectile : PauseableObject
 {
     //ownership is tags and layers
 
+    protected GameObject explosion;
+
     float bulletLifetime = 0;
     float startTime = 0;
 
@@ -15,6 +17,7 @@ public class Projectile : PauseableObject
     {
         base.Awake();
         //extra
+        explosion = Resources.Load<GameObject>("Prefabs/Explosion");
     }
 
     protected virtual void Update()
@@ -45,15 +48,10 @@ public class Projectile : PauseableObject
     {
         //put collision logic on each bullet
 
-        //if (collision.gameObject.tag != "Player")
-        //{
-        //    Instantiate(Resources.Load<GameObject>("Prefabs/Explosion"), transform.position, Quaternion.identity);
-        //    //Destroy(gameObject);
-        //}
-
+        //all bullets will die on ground collision
         if (collision.gameObject.tag == "Ground")
         {
-            Instantiate(Resources.Load<GameObject>("Prefabs/Explosion"), transform.position, Quaternion.identity);
+            Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

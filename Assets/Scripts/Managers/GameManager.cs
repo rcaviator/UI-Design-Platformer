@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
+/// <summary>
+/// GameManager is the main manager for the whole game
+/// </summary>
 class GameManager
 {
     #region Fields
@@ -143,32 +145,7 @@ class GameManager
     /// </summary>
     private void Update()
     {
-        //escape scenes
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainWorld"))
-        {
-            if (Input.GetKey(KeyCode.Escape))
-            {
-                SceneManager.LoadScene("MainMenu");
-            }
-        }
-        else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Tutorial"))
-        {
-            if (Input.GetKey(KeyCode.Escape))
-            {
-                SceneManager.LoadScene("MainMenu");
-            }
-        }
-        else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("TestLevel"))
-        {
-            //if (Input.GetKey(KeyCode.Escape))
-            //{
-            //    //SceneManager.LoadScene("MainMenu");
-            //    GameObject canvas = GameObject.Find("CanvasNPC");
-            //    canvas.GetComponent<ObjectiveNPC>().enabled = !canvas.GetComponent<ObjectiveNPC>().enabled;
-            //}
-        }
-
-        //call ui
+        //call ui manager
         UIManager.Instance.Update();
     }
 
@@ -178,14 +155,7 @@ class GameManager
 
     #region Public methods
 
-    ///// <summary>
-    ///// Loads the next scene
-    ///// </summary>
-    ///// <param name="name">Select the scene name you want to go to. If you need to add a scene it is in Constants.cs under SCENE_STRINGS</param>
-    //public void LoadScene(SceneName name)
-    //{
-    //    SceneManager.LoadScene(Constants.SCENE_STRINGS[name]);
-    //}
+    
 
     #endregion
 

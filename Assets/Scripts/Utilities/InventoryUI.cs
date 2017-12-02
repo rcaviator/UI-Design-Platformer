@@ -73,6 +73,7 @@ public class InventoryUI : MonoBehaviour
         {
             Instantiate(shield, GameManager.Instance.Player.transform.position, Quaternion.identity);
             GameManager.Instance.Player.gameObject.GetComponent<Player>().PlayerInventory.RemoveFirstItemOfType(aItem);
+            AudioManager.Instance.PlayUISoundEffect(UISoundEffect.UseShield);
             Start();
         }
         else if (aItem == ItemType.FireSpray)
@@ -84,7 +85,8 @@ public class InventoryUI : MonoBehaviour
         {
             GameManager.Instance.Player.gameObject.GetComponent<Player>().PlayerInventory.RemoveFirstItemOfType(aItem);
             //fix this later
-            GameManager.Instance.Player.gameObject.GetComponent<Player>().PlayerHealth += 50f;
+            GameManager.Instance.Player.gameObject.GetComponent<Player>().PlayerHealth += Constants.ITEM_HEALTH_POTION_RESTORATION;
+            AudioManager.Instance.PlayUISoundEffect(UISoundEffect.UseHealthPotion);
             Start();
         }
     }

@@ -72,7 +72,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -99,10 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d4d9919612de7f48ae6435e028bb893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
-  explosion: {fileID: 1540168978191386, guid: 3b8642791fefe6147940d95fa594ab6b, type: 2}
-  healthPotion: {fileID: 1946422590451108, guid: 922cd0ae0ccff7f4e8e9182e291eda2a,
-    type: 2}
 --- !u!212 &212334458845251872
 SpriteRenderer:
   m_ObjectHideFlags: 1

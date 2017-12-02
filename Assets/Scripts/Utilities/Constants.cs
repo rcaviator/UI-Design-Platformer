@@ -18,4 +18,27 @@ public static class Constants
     public const float PLAYER_BASIC_ATTACK_BULLET_LIFETIME = 0.5f;
 
     #endregion
+
+    #region Enemy Constants
+
+    public const float BASIC_ENEMY_MAX_HORIZONTAL_SPEED = 1f;
+    public const float BASIC_ENEMY_HORIZONTAL_ACCELERATION = 2f;
+    public const float BASIC_ENEMY_DETECTION_DISTANCE = 3f;
+    public const float BASIC_ENEMY_MELEE_HEALTH = 3f;
+    public const float BASIC_ENEMY_MELEE_DAMAGE_TO_PLAYER = 10f;
+    public const float BASIC_ENEMY_RANGED_HEALTH = 3f;
+    public const float BASIC_ENEMY_RANGED_FIRING_DISTANCE = 2f;
+    public const float BASIC_ENEMY_RANGED_FIRING_TIMER = 1f;
+    public const float BASIC_ENEMY_RANGED_DAMAGE_TO_PLAYER = 10f;
+    public const float BASIC_ENEMY_PROJECTILE_SPEED = 2f;
+    public const float BASIC_ENEMY_PROJECTILE_LIFETIME = 1f;
+    public const float BASIC_ENEMY_PROJECTILE_DAMAGE_TO_PLAYER = 10f;
+
+    #endregion
+
+    #region Items
+
+    public const float ITEM_HEALTH_POTION_RESTORATION = 50f;
+
+    #endregion
 }

@@ -19,7 +19,10 @@ public enum MusicSoundEffect
 public enum UISoundEffect
 {
     None, Test, MenuButtonFocused, MenuForward, MenuBack, GameSelect, GameStart, GameExit,
-    GameSavedButton,
+    GameSavedButton, GamePaused,
+
+    //in player menu sounds
+    UseHealthPotion, UseShield, UseKey,
 }
 
 /// <summary>
@@ -33,7 +36,7 @@ public enum GamePlaySoundEffect
 
     //enemies
     EnemyFootsteps, EnemyJump, EnemyLand, EnemyHurt, EnemyDeath, EnemyAttack,
-    BossFootsteps, BossJump, BossLand, BossHurt, BossDeath, BossAttack,
+    BossFootsteps, BossJump, BossLand, BossHurt, BossDeath, BossAttack, EnemyProjectile,
     
     //npcs
 
@@ -42,6 +45,7 @@ public enum GamePlaySoundEffect
     
     //environment
     Explosion1, Explosion2, Explosion3, Explosion4, Explosion5, Explosion6,
+    Teleport,
     
     //bullets
     ProjectileHitWall,
@@ -110,6 +114,10 @@ class AudioManager
             { UISoundEffect.GameStart, Resources.Load<AudioClip>("Audio/UI/ButtonActionEngage") },
             { UISoundEffect.GameSavedButton, Resources.Load<AudioClip>("Audio/UI/") },
             { UISoundEffect.GameExit, Resources.Load<AudioClip>("Audio/UI/ButtonActionNegative") },
+            { UISoundEffect.GamePaused, Resources.Load<AudioClip>("Audio/UI/PauseGame") },
+            { UISoundEffect.UseHealthPotion, Resources.Load<AudioClip>("Audio/Effects/UseHealthPotion") },
+            { UISoundEffect.UseShield, Resources.Load<AudioClip>("Audio/Effects/UseShield") },
+            { UISoundEffect.UseKey, Resources.Load<AudioClip>("Audio/") },
         };
 
         //create and populate the game play sound effects dictionary
@@ -136,6 +144,7 @@ class AudioManager
             { GamePlaySoundEffect.BossHurt, Resources.Load<AudioClip>("")},
             { GamePlaySoundEffect.BossDeath, Resources.Load<AudioClip>("")},
             { GamePlaySoundEffect.BossAttack, Resources.Load<AudioClip>("")},
+            { GamePlaySoundEffect.EnemyProjectile, Resources.Load<AudioClip>("Audio/Effects/EnemyFireball") },
             { GamePlaySoundEffect.ItemPickup, Resources.Load<AudioClip>("Audio/Effects/PickupItem")},
             { GamePlaySoundEffect.ItemUse, Resources.Load<AudioClip>("")},
             { GamePlaySoundEffect.ItemExpired, Resources.Load<AudioClip>("")},
@@ -149,6 +158,7 @@ class AudioManager
             { GamePlaySoundEffect.Explosion4, Resources.Load<AudioClip>("Audio/Effects/Blast4") },
             { GamePlaySoundEffect.Explosion5, Resources.Load<AudioClip>("Audio/Effects/Blast5") },
             { GamePlaySoundEffect.Explosion6, Resources.Load<AudioClip>("Audio/Effects/Blast6") },
+            { GamePlaySoundEffect.Teleport, Resources.Load<AudioClip>("Audio/Effects/PlayerTeleportSpawn") },
             { GamePlaySoundEffect.ProjectileHitWall, Resources.Load<AudioClip>("") },
             //{ GamePlaySoundEffect.GameWin, Resources.Load<AudioClip>("")},
             //{ GamePlaySoundEffect.GameLose, Resources.Load<AudioClip>("")},
