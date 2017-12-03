@@ -35,7 +35,7 @@ public enum GamePlaySoundEffect
     PlayerHitWall,
 
     //enemies
-    EnemyFootsteps, EnemyJump, EnemyLand, EnemyHurt, EnemyDeath, EnemyAttack,
+    EnemyFootsteps, EnemyJump, EnemyLand, EnemyHurt, EnemyDeath, EnemyDeath2, EnemyDeath3, EnemyAttack,
     BossFootsteps, BossJump, BossLand, BossHurt, BossDeath, BossAttack, EnemyProjectile,
     
     //npcs
@@ -137,6 +137,8 @@ class AudioManager
             { GamePlaySoundEffect.EnemyJump, Resources.Load<AudioClip>("")},
             { GamePlaySoundEffect.EnemyLand, Resources.Load<AudioClip>("")},
             { GamePlaySoundEffect.EnemyDeath, Resources.Load<AudioClip>("Audio/Effects/EnemyDeath")},
+            { GamePlaySoundEffect.EnemyDeath2, Resources.Load<AudioClip>("Audio/Effects/EnemyDeath2")},
+            { GamePlaySoundEffect.EnemyDeath3, Resources.Load<AudioClip>("Audio/Effects/EnemyDeath3")},
             { GamePlaySoundEffect.EnemyAttack, Resources.Load<AudioClip>("")},
             { GamePlaySoundEffect.BossFootsteps, Resources.Load<AudioClip>("")},
             { GamePlaySoundEffect.BossJump, Resources.Load<AudioClip>("")},
@@ -158,7 +160,7 @@ class AudioManager
             { GamePlaySoundEffect.Explosion4, Resources.Load<AudioClip>("Audio/Effects/Blast4") },
             { GamePlaySoundEffect.Explosion5, Resources.Load<AudioClip>("Audio/Effects/Blast5") },
             { GamePlaySoundEffect.Explosion6, Resources.Load<AudioClip>("Audio/Effects/Blast6") },
-            { GamePlaySoundEffect.Teleport, Resources.Load<AudioClip>("Audio/Effects/PlayerTeleportSpawn") },
+            { GamePlaySoundEffect.Teleport, Resources.Load<AudioClip>("Audio/Effects/PlayerTeleporterSpawn") },
             { GamePlaySoundEffect.ProjectileHitWall, Resources.Load<AudioClip>("") },
             //{ GamePlaySoundEffect.GameWin, Resources.Load<AudioClip>("")},
             //{ GamePlaySoundEffect.GameLose, Resources.Load<AudioClip>("")},

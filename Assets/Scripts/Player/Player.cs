@@ -28,7 +28,7 @@ public class Player : PauseableObject
     float maxFootStepTime = 0.2f;
     float footStepTimer = 0f;
 
-    float health = 100f;
+    float health = Constants.PLAYER_HEALTH_AMOUNT;
 
     [SerializeField]
     Image healthBar;
@@ -67,7 +67,7 @@ public class Player : PauseableObject
             CheckStates();
 
             //update health bar
-            healthBar.fillAmount = health / 100f;
+            healthBar.fillAmount = health / Constants.PLAYER_HEALTH_AMOUNT;
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BasicEnemyRanged : Enemy
 {
@@ -8,6 +9,10 @@ public class BasicEnemyRanged : Enemy
     GameObject explosion;
     GameObject healthPotion;
     GameObject enemyProjectile;
+
+    //health image
+    [SerializeField]
+    Image healthBar;
 
     bool inRange = false;
     float timer = 0f;
@@ -30,6 +35,8 @@ public class BasicEnemyRanged : Enemy
         if (!GameManager.Instance.Paused)
         {
             base.Update();
+
+            #region Movement
 
             //move if player is detected
             if (Vector3.Distance(transform.position, GameManager.Instance.Player.transform.position) < Constants.BASIC_ENEMY_DETECTION_DISTANCE)
@@ -75,6 +82,10 @@ public class BasicEnemyRanged : Enemy
                 currentHorizontalSpeed = 0f;
             }
 
+            #endregion
+
+            #region Fire Control
+
             //firing control
             if (inRange)
             {
@@ -90,6 +101,12 @@ public class BasicEnemyRanged : Enemy
                 }
             }
 
+            #endregion
+
+            #region Health Check
+
+            healthBar.fillAmount = health / Constants.BASIC_ENEMY_RANGED_HEALTH;
+
             //die if health hits 0
             if (health < 1)
             {
@@ -97,8 +114,24 @@ public class BasicEnemyRanged : Enemy
 
                 Instantiate(healthPotion, transform.position, Quaternion.identity);
                 Instantiate(explosion, transform.position, Quaternion.identity);
+                switch (Random.Range(1, 3))
+                {
+                    //case 0:
+                    //    AudioManager.Instance.PlayGamePlaySoundEffect(GamePlaySoundEffect.EnemyDeath);
+                    //    break;
+                    case 1:
+                        AudioManager.Instance.PlayGamePlaySoundEffect(GamePlaySoundEffect.EnemyDeath2);
+                        break;
+                    case 2:
+                        AudioManager.Instance.PlayGamePlaySoundEffect(GamePlaySoundEffect.EnemyDeath3);
+                        break;
+                    default:
+                        break;
+                }
                 Destroy(gameObject);
             }
+
+            #endregion
         }
     }
 
@@ -113,7 +146,8 @@ public class BasicEnemyRanged : Enemy
         if (collision.gameObject.tag == "Player")
         {
             GameManager.Instance.Player.GetComponent<Player>().PlayerHealth -= Constants.BASIC_ENEMY_RANGED_DAMAGE_TO_PLAYER;
-            Instantiate(explosion, transform.position, Quaternion.identity);
+            //Instantiate(explosion, transform.position, Quaternion.identity);
+            AudioManager.Instance.PlayGamePlaySoundEffect(GamePlaySoundEffect.EnemyDeath);
             Destroy(gameObject);
         }
     }

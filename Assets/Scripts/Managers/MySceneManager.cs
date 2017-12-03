@@ -103,7 +103,7 @@ class MySceneManager
         playerLocations = new Dictionary<PlayerSceneLocations, Vector3>()
         {
             { PlayerSceneLocations.Tutorial, new Vector3(0f, 0f, 0f) },
-            { PlayerSceneLocations.Village, new Vector3(0f, 0f, 0f) },
+            { PlayerSceneLocations.Village, new Vector3(-2f, -3f, 0f) },
             { PlayerSceneLocations.Quest1, new Vector3(0f, 0f, 0f) },
             { PlayerSceneLocations.Quest2, new Vector3(0f, 0f, 0f) },
             { PlayerSceneLocations.Quest3, new Vector3(0f, 0f, 0f) },
@@ -270,10 +270,18 @@ class MySceneManager
                 break;
             //set player, new game
             case Scenes.Tutorial:
+                if (!GameManager.Instance.Player)
+                {
+                    MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Player"), Vector3.zero, Quaternion.identity);
+                }
                 GameManager.Instance.Player.GetComponent<Player>().SetPlayerLocation(playerLocations[PlayerSceneLocations.Tutorial]);
                 break;
             //set player, possible tutorial skip
             case Scenes.Village:
+                if (!GameManager.Instance.Player)
+                {
+                    MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Player"), Vector3.zero, Quaternion.identity);
+                }
                 GameManager.Instance.Player.GetComponent<Player>().SetPlayerLocation(playerLocations[PlayerSceneLocations.Village]);
                 break;
             //set player
@@ -310,7 +318,10 @@ class MySceneManager
                 break;
             //test level, set player
             case Scenes.TestLevel:
-                MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Player"), Vector3.zero, Quaternion.identity);
+                if (!GameManager.Instance.Player)
+                {
+                    MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Player"), Vector3.zero, Quaternion.identity);
+                }
                 GameManager.Instance.Player.GetComponent<Player>().SetPlayerLocation(playerLocations[PlayerSceneLocations.TestLevel]);
                 break;
             default:

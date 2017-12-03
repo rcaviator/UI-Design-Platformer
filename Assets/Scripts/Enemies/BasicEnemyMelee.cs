@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BasicEnemyMelee : Enemy
 {
     //item references
     GameObject explosion;
     GameObject healthPotion;
+
+    [SerializeField]
+    Image healthBar;
 
 	// Use this for initialization
 	protected override void Awake ()
@@ -25,6 +29,8 @@ public class BasicEnemyMelee : Enemy
         if (!GameManager.Instance.Paused)
         {
             base.Update();
+
+            #region Movement
 
             //move it player is detected
             if (Vector3.Distance(transform.position, GameManager.Instance.Player.transform.position) < Constants.BASIC_ENEMY_DETECTION_DISTANCE)
@@ -52,15 +58,37 @@ public class BasicEnemyMelee : Enemy
                 currentHorizontalSpeed = 0f;
             }
 
+            #endregion
+
+            #region Health Check
+
+            healthBar.fillAmount = health / Constants.BASIC_ENEMY_MELEE_HEALTH;
+
             //die if health hits 0
             if (health < 1)
             {
                 GameManager.Instance.Score += 100;
 
                 Instantiate(healthPotion, transform.position, Quaternion.identity);
-                Instantiate(explosion, transform.position, Quaternion.identity);
+                //Instantiate(explosion, transform.position, Quaternion.identity);
+                switch (Random.Range(1, 3))
+                {
+                    //case 0:
+                    //    AudioManager.Instance.PlayGamePlaySoundEffect(GamePlaySoundEffect.EnemyDeath);
+                    //    break;
+                    case 1:
+                        AudioManager.Instance.PlayGamePlaySoundEffect(GamePlaySoundEffect.EnemyDeath2);
+                        break;
+                    case 2:
+                        AudioManager.Instance.PlayGamePlaySoundEffect(GamePlaySoundEffect.EnemyDeath3);
+                        break;
+                    default:
+                        break;
+                }
                 Destroy(gameObject);
             }
+
+            #endregion
         }
 	}
 
@@ -75,6 +103,7 @@ public class BasicEnemyMelee : Enemy
         if (collision.gameObject.tag == "Player")
         {
             GameManager.Instance.Player.GetComponent<Player>().PlayerHealth -= Constants.BASIC_ENEMY_MELEE_DAMAGE_TO_PLAYER;
+            AudioManager.Instance.PlayGamePlaySoundEffect(GamePlaySoundEffect.EnemyDeath);
             Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
