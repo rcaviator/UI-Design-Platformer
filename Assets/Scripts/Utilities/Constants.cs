@@ -11,6 +11,7 @@ public static class Constants
 
     #region Player Constants
 
+    public const float PLAYER_HEALTH_AMOUNT = 100f;
     public const float PLAYER_MAX_HORIZONTAL_SPEED = 2.5f;
     public const float PLAYER_HORIZONTAL_ACCELERATION = 5f;
     public const float PLAYER_JUMP_FORCE = 5f;
@@ -24,7 +25,7 @@ public static class Constants
     public const float BASIC_ENEMY_MAX_HORIZONTAL_SPEED = 1f;
     public const float BASIC_ENEMY_HORIZONTAL_ACCELERATION = 2f;
     public const float BASIC_ENEMY_DETECTION_DISTANCE = 3f;
-    public const float BASIC_ENEMY_MELEE_HEALTH = 3f;
+    public const float BASIC_ENEMY_MELEE_HEALTH = 5f;
     public const float BASIC_ENEMY_MELEE_DAMAGE_TO_PLAYER = 10f;
     public const float BASIC_ENEMY_RANGED_HEALTH = 3f;
     public const float BASIC_ENEMY_RANGED_FIRING_DISTANCE = 2f;
