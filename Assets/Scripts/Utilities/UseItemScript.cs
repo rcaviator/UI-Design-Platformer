@@ -34,7 +34,7 @@ public class UseItemScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnButtonClick()
     {
-        UIManager.Instance.PlayerInventoryUI.UseItem(gameObject.GetComponent<Image>());
+        UIManager.Instance.PlayerCharacterMenuCanvas.UseItem(gameObject.GetComponent<Image>());
 
         //Debug.Log("inventory pointer up");
         if (gameObject.GetComponent<Image>().sprite != null)
@@ -76,7 +76,7 @@ public class UseItemScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         GameManager.Instance.Player.GetComponent<Player>().PlayerInventory.RemoveFirstItemOfType(ItemType.KeyPartPickupBit);
         GameManager.Instance.Player.GetComponent<Player>().PlayerInventory.AddItem(new Item(ItemType.Key));
         
-        UIManager.Instance.PlayerInventoryUI.ReStartUI();
+        UIManager.Instance.PlayerCharacterMenuCanvas.ReStartUI();
     }
 
     //unity events

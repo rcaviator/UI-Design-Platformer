@@ -103,10 +103,10 @@ class MySceneManager
         playerLocations = new Dictionary<PlayerSceneLocations, Vector3>()
         {
             { PlayerSceneLocations.Tutorial, new Vector3(0f, 0f, 0f) },
-            { PlayerSceneLocations.Village, new Vector3(-2f, -3f, 0f) },
-            { PlayerSceneLocations.Quest1, new Vector3(0f, 0f, 0f) },
-            { PlayerSceneLocations.Quest2, new Vector3(0f, 0f, 0f) },
-            { PlayerSceneLocations.Quest3, new Vector3(0f, 0f, 0f) },
+            { PlayerSceneLocations.Village, new Vector3(-7f, -1.8f, 0f) },
+            { PlayerSceneLocations.Quest1, new Vector3(-15f, -1.8f, 0f) },
+            { PlayerSceneLocations.Quest2, new Vector3(-15f, -1.8f, 0f) },
+            { PlayerSceneLocations.Quest3, new Vector3(-15f, -1.8f, 0f) },
             { PlayerSceneLocations.QuestMain, new Vector3(0f, 0f, 0f) },
             { PlayerSceneLocations.Boss1, new Vector3(0f, 0f, 0f) },
             { PlayerSceneLocations.BossFinal, new Vector3(0f, 0f, 0f) },

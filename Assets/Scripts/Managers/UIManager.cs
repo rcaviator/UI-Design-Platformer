@@ -22,7 +22,10 @@ class UIManager
     PauseGameMenu pauseMenu;
 
     //main player menu
-    InventoryUI inventoryDisplay;
+    CharacterMenuCanvas characterDisplay;
+
+    //quest menu
+    QuestUI questUI;
 
     #endregion
 
@@ -43,8 +46,6 @@ class UIManager
             { ItemType.KeyPartPickupBit, Resources.Load<Sprite>("Graphics/Items/KeyBit") },
             { ItemType.Key, Resources.Load<Sprite>("Graphics/Items/Key") }
         };
-
-        //PlayerInventoryUI = Resources.Load<InventoryUI>("Prefabs/InventoryUI");
     }
 
     #endregion
@@ -52,18 +53,21 @@ class UIManager
     #region Properties
 
     /// <summary>
-    /// returns the instance
+    /// Returns the instance
     /// </summary>
     public static UIManager Instance
     {
         get { return instance ?? (instance = new UIManager()); }
     }
 
-    public InventoryUI PlayerInventoryUI
+    public CharacterMenuCanvas PlayerCharacterMenuCanvas
     { get; private set; }
 
 
     public PauseGameMenu PauseMenu
+    { get; private set; }
+
+    public QuestUI QuestDialog
     { get; private set; }
 
     #endregion
@@ -90,12 +94,18 @@ class UIManager
         }
 
         //player menu
-        if (InputManager.Instance.GetButtonDown(PlayerAction.ViewInventory) && !PlayerInventoryUI)
+        if (InputManager.Instance.GetButtonDown(PlayerAction.ViewInventory) && !PlayerCharacterMenuCanvas)
         {
             CloseUI();
-            PlayerInventoryUI = MonoBehaviour.Instantiate(Resources.Load<InventoryUI>("Prefabs/InventoryUI"), Vector3.zero, Quaternion.identity);
+            PlayerCharacterMenuCanvas = MonoBehaviour.Instantiate(Resources.Load<CharacterMenuCanvas>("Prefabs/CharacterMenuCanvas"), Vector3.zero, Quaternion.identity);
         }
-        else if (PlayerInventoryUI && InputManager.Instance.GetButtonDown(PlayerAction.ViewInventory))
+        else if (PlayerCharacterMenuCanvas && InputManager.Instance.GetButtonDown(PlayerAction.ViewInventory))
+        {
+            CloseUI();
+        }
+
+        //quest dialog
+        if (QuestDialog && InputManager.Instance.GetButtonDown(PlayerAction.PauseGame))
         {
             CloseUI();
         }
@@ -114,9 +124,25 @@ class UIManager
         }
 
         //player menu
-        if (PlayerInventoryUI)
+        if (PlayerCharacterMenuCanvas)
         {
-            MonoBehaviour.Destroy(PlayerInventoryUI.gameObject);
+            MonoBehaviour.Destroy(PlayerCharacterMenuCanvas.gameObject);
+        }
+
+        //quest ui
+        if (QuestDialog)
+        {
+            MonoBehaviour.Destroy(QuestDialog.gameObject);
+        }
+    }
+
+
+    public void CreateQuestDialog(string giver, string title, string dialog, Sprite npc)
+    {
+        if (!QuestDialog)
+        {
+            QuestDialog = MonoBehaviour.Instantiate(Resources.Load<QuestUI>("Prefabs/QuestDialogCanvas"), Vector3.zero, Quaternion.identity);
+            QuestDialog.Initialize(giver, title, dialog, npc);
         }
     }
 
