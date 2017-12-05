@@ -4,16 +4,22 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryUI : MonoBehaviour
+public class CharacterMenuCanvas : MonoBehaviour
 {
     [SerializeField]
     Image[] inventoryPanels;
 
     //items
     GameObject shield;
+    Color trans;
 
-	// Use this for initialization
-	void Start ()
+    private void Awake()
+    {
+        trans = inventoryPanels[0].color;
+    }
+
+    // Use this for initialization
+    void Start ()
     {
         //pause game
         GameManager.Instance.Paused = true;
@@ -27,6 +33,7 @@ public class InventoryUI : MonoBehaviour
         {
             if (item.Value.Count != 0)
             {
+                inventoryPanels[index].color = Color.white;
                 inventoryPanels[index].sprite = UIManager.Instance.inventoryImages[item.Key];
                 inventoryPanels[index].gameObject.GetComponentInChildren<Text>().text = item.Value.Count.ToString();
                 index++;
@@ -34,6 +41,7 @@ public class InventoryUI : MonoBehaviour
             else
             {
                 inventoryPanels[index].sprite = null;
+                inventoryPanels[index].color = trans;
                 inventoryPanels[index].gameObject.GetComponentInChildren<Text>().text = "";
             }
         }

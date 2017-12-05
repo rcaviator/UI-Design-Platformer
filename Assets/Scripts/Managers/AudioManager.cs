@@ -10,7 +10,7 @@ using UnityEngine;
 public enum MusicSoundEffect
 {
     None, Test, MainMenu, Tutorial, Village, Quest1, Quest2, Quest3, QuestMain,
-    Boss1, BossFinal, Victory,
+    Boss1, BossFinal, Victory, Defeat,
 }
 
 /// <summary>
@@ -94,13 +94,14 @@ class AudioManager
             { MusicSoundEffect.MainMenu, Resources.Load<AudioClip>("Audio/Music/TitleScreen") },
             { MusicSoundEffect.Tutorial, Resources.Load<AudioClip>("Audio/Music/TrainingGround") },
             { MusicSoundEffect.Village, Resources.Load<AudioClip>("Audio/Music/Village") },
-            { MusicSoundEffect.Quest1, Resources.Load<AudioClip>("Audio/Music/WildWest") },
-            { MusicSoundEffect.Quest2, Resources.Load<AudioClip>("Audio/Music/Spaceship") },
-            { MusicSoundEffect.Quest3, Resources.Load<AudioClip>("Audio/Music/ReturnToPlanetX") },
+            { MusicSoundEffect.Quest1, Resources.Load<AudioClip>("Audio/Music/MexicanMission") },
+            { MusicSoundEffect.Quest2, Resources.Load<AudioClip>("Audio/Music/IceStation") },
+            { MusicSoundEffect.Quest3, Resources.Load<AudioClip>("Audio/Music/Spaceship") },
             { MusicSoundEffect.QuestMain, Resources.Load<AudioClip>("Audio/Music/Hanger") },
             { MusicSoundEffect.Boss1, Resources.Load<AudioClip>("Audio/Music/Docks") },
             { MusicSoundEffect.BossFinal, Resources.Load<AudioClip>("Audio/Music/Warzone") },
-            { MusicSoundEffect.Victory, Resources.Load<AudioClip>("Audio/Music/IceStation") },
+            { MusicSoundEffect.Victory, Resources.Load<AudioClip>("Audio/Music/") },
+            { MusicSoundEffect.Defeat, Resources.Load<AudioClip>("Audio/Music/") },
         };
 
         //create and populate the UI dictionary

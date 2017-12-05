@@ -663,7 +663,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Test Level
+  m_Text: New Gane
 --- !u!222 &979998667
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1299,7 +1299,7 @@ GameObject:
   - component: {fileID: 1955393735}
   - component: {fileID: 1955393739}
   m_Layer: 5
-  m_Name: TestLevel
+  m_Name: StartGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1336,7 +1336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonSound: 6
-  goToScene: 15
+  goToScene: 6
 --- !u!114 &1955393736
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,5 +13,6 @@ public class Initializer : MonoBehaviour
         InputManager.Instance.ToString();
         UIManager.Instance.ToString();
         MySceneManager.Instance.ToString();
+        QuestManager.Instance.ToString();
 	}
 }
