@@ -15,6 +15,8 @@ public class BasicEnemyMelee : Enemy
 	// Use this for initialization
 	protected override void Awake ()
     {
+        base.healthBar = healthBar;
+
         base.Awake();
 
         health = Constants.BASIC_ENEMY_MELEE_HEALTH;
@@ -62,13 +64,11 @@ public class BasicEnemyMelee : Enemy
 
             #region Health Check
 
-            healthBar.fillAmount = health / Constants.BASIC_ENEMY_MELEE_HEALTH;
+            base.healthBar.fillAmount = health / Constants.BASIC_ENEMY_MELEE_HEALTH;
 
             //die if health hits 0
             if (health < 1)
             {
-                GameManager.Instance.Score += 100;
-
                 Instantiate(healthPotion, transform.position, Quaternion.identity);
                 //Instantiate(explosion, transform.position, Quaternion.identity);
                 switch (Random.Range(1, 3))

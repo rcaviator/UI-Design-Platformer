@@ -77,19 +77,28 @@ public class ButtonScript : MonoBehaviour, IPointerEnterHandler, ISelectHandler,
 
     public void ChangeToWASD()
     {
-        AudioManager.Instance.PlayUISoundEffect(buttonSound);
-        InputManager.Instance.ChangeToWASD();
+        if (!InputManager.Instance.IsControllerConnected)
+        {
+            AudioManager.Instance.PlayUISoundEffect(buttonSound);
+            InputManager.Instance.ChangeToWASD();
+        }
     }
 
     public void ChangeToIJKL()
     {
-        AudioManager.Instance.PlayUISoundEffect(buttonSound);
-        InputManager.Instance.ChangeToIJKL();
+        if (!InputManager.Instance.IsControllerConnected)
+        {
+            AudioManager.Instance.PlayUISoundEffect(buttonSound);
+            InputManager.Instance.ChangeToIJKL();
+        }
     }
 
     public void ChangeToArrows()
     {
-        AudioManager.Instance.PlayUISoundEffect(buttonSound);
-        InputManager.Instance.ChangeToArrows();
+        if (!InputManager.Instance.IsControllerConnected)
+        {
+            AudioManager.Instance.PlayUISoundEffect(buttonSound);
+            InputManager.Instance.ChangeToArrows();
+        }
     }
 }

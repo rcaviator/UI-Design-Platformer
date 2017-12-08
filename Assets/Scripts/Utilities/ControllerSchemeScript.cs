@@ -16,6 +16,6 @@ public class ControllerSchemeScript : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        text.text = "Controller Scheme " + InputManager.Instance.GetCurrentSettingsName();
+        text.text = "Current Controlls: " + InputManager.Instance.GetCurrentSettingsName();
 	}
 }

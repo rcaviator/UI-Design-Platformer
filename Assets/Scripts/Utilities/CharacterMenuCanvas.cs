@@ -15,6 +15,7 @@ public class CharacterMenuCanvas : MonoBehaviour
 
     private void Awake()
     {
+        AudioManager.Instance.PlayUISoundEffect(UISoundEffect.GamePaused);
         trans = inventoryPanels[0].color;
     }
 
@@ -109,7 +110,14 @@ public class CharacterMenuCanvas : MonoBehaviour
 
     private void OnDestroy()
     {
+        AudioManager.Instance.PlayUISoundEffect(UISoundEffect.GameStart);
         GameManager.Instance.Paused = false;
+    }
+
+
+    public void CloseMenu()
+    {
+        Destroy(gameObject);
     }
 
     //// Update is called once per frame

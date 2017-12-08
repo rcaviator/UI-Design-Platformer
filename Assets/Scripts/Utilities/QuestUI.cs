@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class QuestUI : MonoBehaviour
 {
+    [SerializeField]
+    Quests quest;
+
     //references to the ui elements
     Text questGiver;
     Text questTitle;
@@ -50,7 +53,37 @@ public class QuestUI : MonoBehaviour
 
     public void OnQuestAccept()
     {
-
+        switch (quest)
+        {
+            case Quests.None:
+                break;
+            case Quests.Tutorial:
+                break;
+            case Quests.MainQuest:
+                break;
+            case Quests.Quest1:
+                //check if quest exists
+                if (QuestManager.Instance.GetAvailableQuests.ContainsKey(quest))
+                {
+                    //check if quest was already completed
+                    if (!QuestManager.Instance.GetCompletedQuests.ContainsKey(quest))
+                    {
+                        //check if quest is already current
+                        if (!QuestManager.Instance.GetCurrentQuests.ContainsKey(quest))
+                        {
+                            //add quest
+                            QuestManager.Instance.AddQuest(quest);
+                        }
+                    }
+                }
+                break;
+            case Quests.Quest2:
+                break;
+            case Quests.Quest3:
+                break;
+            default:
+                break;
+        }
     }
 
     public void OnQuestDecline()

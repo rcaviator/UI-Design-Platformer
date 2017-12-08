@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 57caba390bd1c6948b95b46e11f3a9e1
+timeCreated: 1512711862
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Wolves and Ruin
+  fontNames:
+  - Wolves and Ruin
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

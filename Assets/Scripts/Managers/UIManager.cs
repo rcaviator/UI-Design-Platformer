@@ -137,6 +137,15 @@ class UIManager
     }
 
 
+    public void CreateCharacterMenu()
+    {
+        if (!PlayerCharacterMenuCanvas)
+        {
+            CloseUI();
+            PlayerCharacterMenuCanvas = MonoBehaviour.Instantiate(Resources.Load<CharacterMenuCanvas>("Prefabs/CharacterMenuCanvas"), Vector3.zero, Quaternion.identity);
+        }
+    }
+
     public void CreateQuestDialog(string giver, string title, string dialog, Sprite npc)
     {
         if (!QuestDialog)

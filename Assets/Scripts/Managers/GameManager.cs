@@ -20,6 +20,9 @@ class GameManager
     //list of pausable objects
     List<PauseableObject> pausableObjects;
 
+    //portal timer
+    float portalTimer = 0;
+
     #endregion
 
     #region Constructor
@@ -55,9 +58,9 @@ class GameManager
     { get; set; }
 
     /// <summary>
-    /// score
+    /// 
     /// </summary>
-    public int Score
+    public bool CanUsePotal
     { get; set; }
 
     /// <summary>
@@ -147,6 +150,18 @@ class GameManager
     {
         //call ui manager
         UIManager.Instance.Update();
+
+        //update portal timer if used
+        if (!CanUsePotal)
+        {
+            portalTimer += Time.deltaTime;
+
+            if (portalTimer >= Constants.PORTAL_TIMER_AMOUNT)
+            {
+                CanUsePotal = true;
+                portalTimer = 0f;
+            }
+        }
     }
 
     #endregion
