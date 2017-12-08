@@ -7,11 +7,14 @@ public static class Constants
 {
     #region Game Constants
 
+    public const float PORTAL_TIMER_AMOUNT = 1f;
+
     #endregion
 
     #region Player Constants
 
     public const float PLAYER_HEALTH_AMOUNT = 100f;
+    public const float PLAYER_RESPAWN_HEALTH_AMOUNT = 75f;
     public const float PLAYER_MAX_HORIZONTAL_SPEED = 2.5f;
     public const float PLAYER_HORIZONTAL_ACCELERATION = 5f;
     public const float PLAYER_JUMP_FORCE = 5f;
@@ -40,6 +43,7 @@ public static class Constants
     #region Items
 
     public const float ITEM_HEALTH_POTION_RESTORATION = 50f;
+    public const float SHIELD_DURATION = 10f;
 
     #endregion
 }

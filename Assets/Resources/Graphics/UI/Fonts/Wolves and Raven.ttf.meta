@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 5deb3eedc1b9f7a4d8bd3302a3b569af
+timeCreated: 1512711862
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Wolves and Ravens
+  fontNames:
+  - Wolves and Ravens
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -17,21 +17,35 @@ public class Player : PauseableObject
     //player state matchine variable
     PlayerState playerState = PlayerState.Idle;
 
+    //attack object
     [SerializeField]
     GameObject basicAttack;
 
+    //other variables
     bool facingLeft = false;
     float currentHorizontalSpeed = 0f;
     bool isGrounded = true;
     SpriteRenderer sRender;
 
+    //footstep timers
     float maxFootStepTime = 0.2f;
     float footStepTimer = 0f;
 
     float health = Constants.PLAYER_HEALTH_AMOUNT;
 
+    //health bar variables
     [SerializeField]
     Image healthBar;
+    Sprite normalHealthBar;
+    Sprite damagedHealthBar;
+    bool flashHealthBar = false;
+    float maxHealthBarFlash = 0.2f;
+    float healthBarFlash = 0f;
+
+    //auto firing controll
+    float maxAutoFireTimer = 0.15f;
+    float autoFireTimer = 0f;
+    bool canShoot = false;
 
     #endregion
 
@@ -44,6 +58,8 @@ public class Player : PauseableObject
         GameManager.Instance.Player = gameObject;
         sRender = GetComponent<SpriteRenderer>();
         rBody.freezeRotation = true;
+        normalHealthBar = healthBar.sprite;
+        damagedHealthBar = Resources.Load<Sprite>("Graphics/Environment/HealthBarDamagedSprite");
         
         //create new inventory
         PlayerInventory = new Inventory();
@@ -55,7 +71,7 @@ public class Player : PauseableObject
 	// Update is called once per frame
 	void Update ()
     {
-        if (!GameManager.Instance.Paused)
+        if (!GameManager.Instance.Paused && !PausePlayer)
         {
             //update player movement
             PlayerMovement();
@@ -68,6 +84,31 @@ public class Player : PauseableObject
 
             //update health bar
             healthBar.fillAmount = health / Constants.PLAYER_HEALTH_AMOUNT;
+
+            //flash health bar if damaged
+            if (flashHealthBar)
+            {
+                healthBarFlash += Time.deltaTime;
+
+                if (healthBarFlash <= maxHealthBarFlash)
+                {
+                    //healthBar.GetComponent<Image>().color = Color.red;
+                    healthBar.sprite = damagedHealthBar;
+                }
+                else
+                {
+                    //healthBar.GetComponent<Image>().color = Color.white;
+                    healthBar.sprite = normalHealthBar;
+                    healthBarFlash = 0f;
+                    flashHealthBar = false;
+                }
+            }
+
+            //change scenes if dead
+            if (health <= 0f)
+            {
+                MySceneManager.Instance.ChangeScene(Scenes.Defeat);
+            }
         }
     }
 
@@ -83,6 +124,9 @@ public class Player : PauseableObject
         //resets camera for canvas component
         transform.GetChild(2).GetComponent<Canvas>().worldCamera = Camera.main;
     }
+
+    public bool PausePlayer
+    { get; set; }
 
     /// <summary>
     /// the player health
@@ -233,10 +277,21 @@ public class Player : PauseableObject
             sRender.flipX = true;
         }
 
+        if (autoFireTimer < maxAutoFireTimer)
+        {
+            autoFireTimer += Time.deltaTime;
+        }
+        else
+        {
+            canShoot = true;
+        }
+
         //attack
-        if (InputManager.Instance.GetButtonDown(PlayerAction.FirePrimary))
+        if (InputManager.Instance.GetButton(PlayerAction.FirePrimary) && canShoot)
         {
             BasicAttack();
+            canShoot = false;
+            autoFireTimer = 0f;
         }
     }
 
@@ -469,6 +524,7 @@ public class Player : PauseableObject
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "EnemyBullet")
         {
             playerState = PlayerState.Hurt;
+            flashHealthBar = true;
         }
     }
 }

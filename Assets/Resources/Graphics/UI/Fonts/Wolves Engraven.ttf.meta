@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 2f1e861e7364d7c46b07deac1b4c1708
+timeCreated: 1512711862
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Wolves Engraven
+  fontNames:
+  - Wolves Engraven
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

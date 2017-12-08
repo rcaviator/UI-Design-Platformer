@@ -8,7 +8,11 @@ public class Shield : MonoBehaviour
 {
     Rigidbody2D rBody;
     GameObject player;
-    float timer = 0f;
+    float shieldDurationTimer = 0f;
+    bool flashShield = false;
+    bool changeColor = true;
+    float maxFlashShieldTimer = 0.5f;
+    float flashShieldTimer = 0f;
 
     GameObject explosion;
 
@@ -28,8 +32,43 @@ public class Shield : MonoBehaviour
         {
             transform.position = player.transform.position;
 
-            timer += Time.deltaTime;
-            if (timer > 10f)
+            shieldDurationTimer += Time.deltaTime;
+
+            //time until shield flashing
+            if (shieldDurationTimer >= Constants.SHIELD_DURATION - 3f)
+            {
+                flashShield = true;
+            }
+
+            //alternate between colors when little time remains
+            if (flashShield)
+            {
+                if (changeColor)
+                {
+                    flashShieldTimer += Time.deltaTime;
+                    GetComponent<SpriteRenderer>().color = Color.red;
+
+                    if (flashShieldTimer >= maxFlashShieldTimer)
+                    {
+                        flashShieldTimer = 0f;
+                        changeColor = false;
+                    }
+                }
+                else
+                {
+                    flashShieldTimer += Time.deltaTime;
+                    GetComponent<SpriteRenderer>().color = Color.white;
+
+                    if (flashShieldTimer >= maxFlashShieldTimer)
+                    {
+                        flashShieldTimer = 0f;
+                        changeColor = true;
+                    }
+                }
+            }
+
+            //destroy shield when time expires
+            if (shieldDurationTimer > Constants.SHIELD_DURATION)
             {
                 Destroy(gameObject);
             }

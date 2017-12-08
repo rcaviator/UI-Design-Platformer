@@ -82,7 +82,15 @@ class QuestManager
 
     #region Public Methods
 
+    public void AddQuest(Quests quest)
+    {
+        currentQuests.Add(quest, questDict[quest]);
+    }
 
+    public void CompleteQuest(Quests quest)
+    {
+
+    }
 
     #endregion
 

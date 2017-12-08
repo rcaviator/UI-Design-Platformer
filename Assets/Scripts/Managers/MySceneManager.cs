@@ -117,6 +117,9 @@ class MySceneManager
 
         //register scene change delegate
         SceneManager.sceneLoaded += OnLevelLoaded;
+
+        //get reference to previous scene with delegate
+        SceneManager.sceneUnloaded += OnLevelUnloaded;
     }
 
     #endregion
@@ -130,6 +133,18 @@ class MySceneManager
     {
         get { return instance ?? (instance = new MySceneManager()); }
     }
+
+    /// <summary>
+    /// The current scene
+    /// </summary>
+    public Scenes CurrentScene
+    { get; set; }
+
+    /// <summary>
+    /// The previous scene
+    /// </summary>
+    public Scenes PreviousScene
+    { get; set; }
 
     #endregion
 
@@ -158,74 +173,74 @@ class MySceneManager
         InputManager.Instance.UpdateEventSystemAxis();
 
         //hold reference to current scene as enum
-        Scenes currScene;
+        //Scenes currScene;
 
         #region Get scene reference
 
         //get scene value and set scene enum
         if (scene.name == Scenes.MainMenu.ToString())
         {
-            currScene = Scenes.MainMenu;
+            CurrentScene = Scenes.MainMenu;
         }
         else if (scene.name == Scenes.Credits.ToString())
         {
-            currScene = Scenes.Credits;
+            CurrentScene = Scenes.Credits;
         }
         else if (scene.name == Scenes.Options.ToString())
         {
-            currScene = Scenes.Options;
+            CurrentScene = Scenes.Options;
         }
         else if (scene.name == Scenes.HowToPlay.ToString())
         {
-            currScene = Scenes.HowToPlay;
+            CurrentScene = Scenes.HowToPlay;
         }
         else if (scene.name == Scenes.Tutorial.ToString())
         {
-            currScene = Scenes.Tutorial;
+            CurrentScene = Scenes.Tutorial;
         }
         else if (scene.name == Scenes.Village.ToString())
         {
-            currScene = Scenes.Village;
+            CurrentScene = Scenes.Village;
         }
         else if (scene.name == Scenes.Quest1.ToString())
         {
-            currScene = Scenes.Quest1;
+            CurrentScene = Scenes.Quest1;
         }
         else if (scene.name == Scenes.Quest2.ToString())
         {
-            currScene = Scenes.Quest2;
+            CurrentScene = Scenes.Quest2;
         }
         else if (scene.name == Scenes.Quest3.ToString())
         {
-            currScene = Scenes.Quest3;
+            CurrentScene = Scenes.Quest3;
         }
         else if (scene.name == Scenes.QuestMain.ToString())
         {
-            currScene = Scenes.QuestMain;
+            CurrentScene = Scenes.QuestMain;
         }
         else if (scene.name == Scenes.Boss1.ToString())
         {
-            currScene = Scenes.Boss1;
+            CurrentScene = Scenes.Boss1;
         }
         else if (scene.name == Scenes.BossFinal.ToString())
         {
-            currScene = Scenes.BossFinal;
+            CurrentScene = Scenes.BossFinal;
         }
         else if (scene.name == Scenes.TestLevel.ToString())
         {
-            currScene = Scenes.TestLevel;
+            CurrentScene = Scenes.TestLevel;
         }
         else if (scene.name == Scenes.Defeat.ToString())
         {
-            currScene = Scenes.Defeat;
+            CurrentScene = Scenes.Defeat;
         }
         else if (scene.name == Scenes.Victory.ToString())
         {
-            currScene = Scenes.Victory;
+            CurrentScene = Scenes.Victory;
         }
         else
         {
-            currScene = Scenes.None;
+            CurrentScene = Scenes.None;
         }
 
         #endregion
@@ -233,24 +248,32 @@ class MySceneManager
         #region Adjust soundtrack
 
         //change soundtracks if needed
-        if (soundtrackDict.ContainsKey(currScene))
+        if (soundtrackDict.ContainsKey(CurrentScene))
         {
-            if (!(soundtrackDict[currScene] == AudioManager.Instance.WhatMusicIsPlaying()))
+            if (!(soundtrackDict[CurrentScene] == AudioManager.Instance.WhatMusicIsPlaying()))
             {
-                AudioManager.Instance.PlayMusic(soundtrackDict[currScene]);
+                AudioManager.Instance.PlayMusic(soundtrackDict[CurrentScene]);
             }
         }
         else
         {
-            Debug.Log("MySceneManager sountrackDict does not contain key " + currScene.ToString() + " for changing sountracks!");
+            Debug.Log("MySceneManager sountrackDict does not contain key " + CurrentScene.ToString() + " for changing sountracks!");
+            AudioManager.Instance.StopMusic();
         }
 
         #endregion
 
         #region Player position
 
+        //if death or victory scenes, stop the player from falling infinitly
+        if (GameManager.Instance.Player)
+        {
+            GameManager.Instance.Player.GetComponent<Rigidbody2D>().simulated = false;
+            GameManager.Instance.Player.GetComponent<Player>().PausePlayer = true;
+        }
+
         //handle moving the player or destroying it
-        switch (currScene)
+        switch (CurrentScene)
         {
             //nothing
             case Scenes.None:
@@ -274,6 +297,8 @@ class MySceneManager
                 {
                     MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Player"), Vector3.zero, Quaternion.identity);
                 }
+                GameManager.Instance.Player.GetComponent<Rigidbody2D>().simulated = true;
+                GameManager.Instance.Player.GetComponent<Player>().PausePlayer = false;
                 GameManager.Instance.Player.GetComponent<Player>().SetPlayerLocation(playerLocations[PlayerSceneLocations.Tutorial]);
                 break;
             //set player, possible tutorial skip
@@ -282,39 +307,59 @@ class MySceneManager
                 {
                     MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Player"), Vector3.zero, Quaternion.identity);
                 }
+                GameManager.Instance.Player.GetComponent<Rigidbody2D>().simulated = true;
+                GameManager.Instance.Player.GetComponent<Player>().PausePlayer = false;
                 GameManager.Instance.Player.GetComponent<Player>().SetPlayerLocation(playerLocations[PlayerSceneLocations.Village]);
                 break;
             //set player
             case Scenes.Quest1:
+                GameManager.Instance.Player.GetComponent<Rigidbody2D>().simulated = true;
+                GameManager.Instance.Player.GetComponent<Player>().PausePlayer = false;
                 GameManager.Instance.Player.GetComponent<Player>().SetPlayerLocation(playerLocations[PlayerSceneLocations.Quest1]);
                 break;
             //set player
             case Scenes.Quest2:
+                GameManager.Instance.Player.GetComponent<Rigidbody2D>().simulated = true;
+                GameManager.Instance.Player.GetComponent<Player>().PausePlayer = false;
                 GameManager.Instance.Player.GetComponent<Player>().SetPlayerLocation(playerLocations[PlayerSceneLocations.Quest2]);
                 break;
             //set player
             case Scenes.Quest3:
+                GameManager.Instance.Player.GetComponent<Rigidbody2D>().simulated = true;
+                GameManager.Instance.Player.GetComponent<Player>().PausePlayer = false;
                 GameManager.Instance.Player.GetComponent<Player>().SetPlayerLocation(playerLocations[PlayerSceneLocations.Quest3]);
                 break;
             //set player
             case Scenes.QuestMain:
+                GameManager.Instance.Player.GetComponent<Rigidbody2D>().simulated = true;
+                GameManager.Instance.Player.GetComponent<Player>().PausePlayer = false;
                 GameManager.Instance.Player.GetComponent<Player>().SetPlayerLocation(playerLocations[PlayerSceneLocations.QuestMain]);
                 break;
             //set player
             case Scenes.Boss1:
+                GameManager.Instance.Player.GetComponent<Rigidbody2D>().simulated = true;
+                GameManager.Instance.Player.GetComponent<Player>().PausePlayer = false;
                 GameManager.Instance.Player.GetComponent<Player>().SetPlayerLocation(playerLocations[PlayerSceneLocations.Boss1]);
                 break;
             //set player
             case Scenes.BossFinal:
+                GameManager.Instance.Player.GetComponent<Rigidbody2D>().simulated = true;
+                GameManager.Instance.Player.GetComponent<Player>().PausePlayer = false;
                 GameManager.Instance.Player.GetComponent<Player>().SetPlayerLocation(playerLocations[PlayerSceneLocations.BossFinal]);
                 break;
             //play player death animation
             case Scenes.Defeat:
-
+                GameManager.Instance.Player.GetComponent<Player>().PlayerHealth = Constants.PLAYER_RESPAWN_HEALTH_AMOUNT;
+                GameManager.Instance.Player.GetComponent<Player>().SetPlayerLocation(playerLocations[PlayerSceneLocations.Defeat]);
+                GameManager.Instance.Player.GetComponent<Rigidbody2D>().simulated = false;
+                GameManager.Instance.Player.GetComponent<Player>().PausePlayer = true;
+                //GameManager.Instance.ResetGame();
                 break;
             //play player victory animation
             case Scenes.Victory:
-
+                GameManager.Instance.Player.GetComponent<Player>().SetPlayerLocation(playerLocations[PlayerSceneLocations.Victory]);
+                GameManager.Instance.Player.GetComponent<Rigidbody2D>().simulated = false;
+                GameManager.Instance.Player.GetComponent<Player>().PausePlayer = true;
                 break;
             //test level, set player
             case Scenes.TestLevel:
@@ -322,6 +367,8 @@ class MySceneManager
                 {
                     MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Player"), Vector3.zero, Quaternion.identity);
                 }
+                GameManager.Instance.Player.GetComponent<Rigidbody2D>().simulated = true;
+                GameManager.Instance.Player.GetComponent<Player>().PausePlayer = false;
                 GameManager.Instance.Player.GetComponent<Player>().SetPlayerLocation(playerLocations[PlayerSceneLocations.TestLevel]);
                 break;
             default:
@@ -330,6 +377,76 @@ class MySceneManager
         }
 
         #endregion
+    }
+
+
+    void OnLevelUnloaded(Scene scene)
+    {
+        //get scene value and set scene enum
+        if (scene.name == Scenes.MainMenu.ToString())
+        {
+            PreviousScene = Scenes.MainMenu;
+        }
+        else if (scene.name == Scenes.Credits.ToString())
+        {
+            PreviousScene = Scenes.Credits;
+        }
+        else if (scene.name == Scenes.Options.ToString())
+        {
+            PreviousScene = Scenes.Options;
+        }
+        else if (scene.name == Scenes.HowToPlay.ToString())
+        {
+            PreviousScene = Scenes.HowToPlay;
+        }
+        else if (scene.name == Scenes.Tutorial.ToString())
+        {
+            PreviousScene = Scenes.Tutorial;
+        }
+        else if (scene.name == Scenes.Village.ToString())
+        {
+            PreviousScene = Scenes.Village;
+        }
+        else if (scene.name == Scenes.Quest1.ToString())
+        {
+            PreviousScene = Scenes.Quest1;
+        }
+        else if (scene.name == Scenes.Quest2.ToString())
+        {
+            PreviousScene = Scenes.Quest2;
+        }
+        else if (scene.name == Scenes.Quest3.ToString())
+        {
+            PreviousScene = Scenes.Quest3;
+        }
+        else if (scene.name == Scenes.QuestMain.ToString())
+        {
+            PreviousScene = Scenes.QuestMain;
+        }
+        else if (scene.name == Scenes.Boss1.ToString())
+        {
+            PreviousScene = Scenes.Boss1;
+        }
+        else if (scene.name == Scenes.BossFinal.ToString())
+        {
+            PreviousScene = Scenes.BossFinal;
+        }
+        else if (scene.name == Scenes.TestLevel.ToString())
+        {
+            PreviousScene = Scenes.TestLevel;
+        }
+        else if (scene.name == Scenes.Defeat.ToString())
+        {
+            PreviousScene = Scenes.Defeat;
+        }
+        else if (scene.name == Scenes.Victory.ToString())
+        {
+            PreviousScene = Scenes.Victory;
+        }
+        else
+        {
+            PreviousScene = Scenes.None;
+        }
     }
 
     /// <summary>

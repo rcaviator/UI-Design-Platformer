@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class UseItemScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
+public class UseItemScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler, ISelectHandler, IDeselectHandler
 {
     GameObject frameImageReference;
     GameObject itemFrame;
@@ -45,19 +45,22 @@ public class UseItemScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 {
                     craftItemCount++;
                     craftingWasClickedOn = true;
-                    itemFrame.SetActive(true);
+                    //itemFrame.SetActive(true);
+                    GetComponent<Button>().Select();
                 }
                 else if (gameObject.GetComponent<Image>().sprite.name == "KeyShaft")
                 {
                     craftItemCount++;
                     craftingWasClickedOn = true;
-                    itemFrame.SetActive(true);
+                    //itemFrame.SetActive(true);
+                    GetComponent<Button>().Select();
                 }
                 else if (gameObject.GetComponent<Image>().sprite.name == "KeyBit")
                 {
                     craftItemCount++;
                     craftingWasClickedOn = true;
-                    itemFrame.SetActive(true);
+                    //itemFrame.SetActive(true);
+                    GetComponent<Button>().Select();
                 }
             }
         }
@@ -85,7 +88,8 @@ public class UseItemScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (!isCraftButton)
         {
             //Debug.Log("inventory pointer enter");
-            itemFrame.SetActive(true);
+            //itemFrame.SetActive(true);
+            GetComponent<Button>().Select();
         }
     }
 
@@ -96,6 +100,7 @@ public class UseItemScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             if (!craftingWasClickedOn)
             {
                 itemFrame.SetActive(false);
+                //GetComponent<Button>().Select();
             }
         }
     }
@@ -126,5 +131,15 @@ public class UseItemScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
         
         //Debug.Log(craftItemCount);
+    }
+
+    public void OnSelect(BaseEventData data)
+    {
+        itemFrame.SetActive(true);
+    }
+
+    public void OnDeselect(BaseEventData data)
+    {
+        itemFrame.SetActive(false);
     }
 }
