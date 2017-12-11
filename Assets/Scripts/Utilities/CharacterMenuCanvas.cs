@@ -1,11 +1,19 @@
-﻿using System.Collections;
+﻿//using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum CharacterMenuMenus
+{
+    None, Inventory, Quests,
+}
+
 public class CharacterMenuCanvas : MonoBehaviour
 {
+    //[SerializeField]
+    //CharacterMenuMenus menu;
+
     [SerializeField]
     Image[] inventoryPanels;
 
@@ -13,8 +21,24 @@ public class CharacterMenuCanvas : MonoBehaviour
     GameObject shield;
     Color trans;
 
+    //dictionary for the menus
+    Dictionary<CharacterMenuMenus, GameObject> characterMenuPanels;
+
     private void Awake()
     {
+        characterMenuPanels = new Dictionary<CharacterMenuMenus, GameObject>()
+        {
+            { CharacterMenuMenus.Inventory, transform.GetChild(0).transform.GetChild(1).gameObject },
+            { CharacterMenuMenus.Quests, transform.GetChild(0).transform.GetChild(2).gameObject },
+        };
+
+        foreach (KeyValuePair<CharacterMenuMenus, GameObject> menu in characterMenuPanels)
+        {
+            menu.Value.SetActive(false);
+        }
+
+        characterMenuPanels[CharacterMenuMenus.Inventory].SetActive(true);
+
         AudioManager.Instance.PlayUISoundEffect(UISoundEffect.GamePaused);
         trans = inventoryPanels[0].color;
     }
@@ -114,6 +138,32 @@ public class CharacterMenuCanvas : MonoBehaviour
         GameManager.Instance.Paused = false;
     }
 
+
+    public void ChangeMenu(string newMenu)
+    {
+        CharacterMenuMenus tempMenu = CharacterMenuMenus.None;
+
+        if (newMenu == CharacterMenuMenus.None.ToString())
+        {
+            tempMenu = CharacterMenuMenus.None;
+        }
+        else if (newMenu == CharacterMenuMenus.Inventory.ToString())
+        {
+            tempMenu = CharacterMenuMenus.Inventory;
+        }
+        else if (newMenu == CharacterMenuMenus.Quests.ToString())
+        {
+            tempMenu = CharacterMenuMenus.Quests;
+        }
+
+        foreach (KeyValuePair<CharacterMenuMenus, GameObject> menu in characterMenuPanels)
+        {
+            menu.Value.SetActive(false);
+        }
+
+        characterMenuPanels[tempMenu].SetActive(true);
+        AudioManager.Instance.PlayUISoundEffect(UISoundEffect.MenuForward);
+    }
 
     public void CloseMenu()
     {

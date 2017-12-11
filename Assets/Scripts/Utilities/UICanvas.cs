@@ -11,6 +11,7 @@ public class UICanvas : MonoBehaviour
     Text questText;
     Button viewQuestsButton;
     Text controllsText;
+    Text scoreText;
 
 	// Use this for initialization
 	void Awake()
@@ -24,14 +25,15 @@ public class UICanvas : MonoBehaviour
         //set text
         locationText.text = "Location: " + SceneManager.GetActiveScene().name;
 
-        controllsText.text = "Pause Menu: " + InputManager.Instance.GetCurrentSettingsDetails(PlayerAction.PauseGame) + "\n"
-            + "Inventory: " + InputManager.Instance.GetCurrentSettingsDetails(PlayerAction.ViewInventory) + "\n"
-            + "Shoot: spam " + InputManager.Instance.GetCurrentSettingsDetails(PlayerAction.FirePrimary) + "\n"
-            + "Enter Portal: " + InputManager.Instance.GetCurrentSettingsDetails(PlayerAction.MoveVertical);
+        controllsText.text = "Pause Menu: " + InputManager.Instance.GetCurrentSettingsDetails(PlayerAction.PauseGame)
+            + ". Inventory: " + InputManager.Instance.GetCurrentSettingsDetails(PlayerAction.ViewInventory)
+            + ". Shoot: " + InputManager.Instance.GetCurrentSettingsDetails(PlayerAction.FirePrimary)
+            + ". Enter Portal: " + InputManager.Instance.GetCurrentSettingsDetails(PlayerAction.MoveVertical);
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		
 	}
 

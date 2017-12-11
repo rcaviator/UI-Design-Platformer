@@ -38,6 +38,9 @@ public static class Constants
     public const float BASIC_ENEMY_PROJECTILE_LIFETIME = 1f;
     public const float BASIC_ENEMY_PROJECTILE_DAMAGE_TO_PLAYER = 10f;
 
+    public const int BASIC_ENEMY_MELEE_SCORE_AMOUNT = 100;
+    public const int BASIC_ENEMY_RANGED_SCORE_AMOUNT = 50;
+
     #endregion
 
     #region Items
