@@ -181,12 +181,20 @@ public class Player : PauseableObject
                 if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) > 0)
                 {
                     facingLeft = false;
+                    if (rBody.velocity.x < 0f)
+                    {
+                        rBody.velocity = new Vector2(0f, rBody.velocity.y);
+                    }
                     currentHorizontalSpeed = Mathf.Clamp(rBody.velocity.x + Constants.PLAYER_HORIZONTAL_ACCELERATION * Time.deltaTime, -Constants.PLAYER_MAX_HORIZONTAL_SPEED, Constants.PLAYER_MAX_HORIZONTAL_SPEED);
                     rBody.velocity = new Vector2(currentHorizontalSpeed, rBody.velocity.y);
                 }
                 else if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) < 0)
                 {
                     facingLeft = true;
+                    if (rBody.velocity.x > 0f)
+                    {
+                        rBody.velocity = new Vector2(0f, rBody.velocity.y);
+                    }
                     currentHorizontalSpeed = Mathf.Clamp(rBody.velocity.x - Constants.PLAYER_HORIZONTAL_ACCELERATION * Time.deltaTime, -Constants.PLAYER_MAX_HORIZONTAL_SPEED, Constants.PLAYER_MAX_HORIZONTAL_SPEED);
                     rBody.velocity = new Vector2(currentHorizontalSpeed, rBody.velocity.y);
                 }

@@ -85,6 +85,10 @@ public class BasicEnemyMelee : Enemy
                     default:
                         break;
                 }
+
+                //increase score
+                GameManager.Instance.Score += Constants.BASIC_ENEMY_MELEE_SCORE_AMOUNT;
+
                 Destroy(gameObject);
             }
 

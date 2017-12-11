@@ -128,6 +128,10 @@ public class BasicEnemyRanged : Enemy
                     default:
                         break;
                 }
+
+                //increase score
+                GameManager.Instance.Score += Constants.BASIC_ENEMY_RANGED_SCORE_AMOUNT;
+
                 Destroy(gameObject);
             }
 

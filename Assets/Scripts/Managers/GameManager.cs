@@ -58,6 +58,12 @@ class GameManager
     { get; set; }
 
     /// <summary>
+    /// Score is for the performance metric requirement
+    /// </summary>
+    public int Score
+    { get; set; }
+
+    /// <summary>
     /// 
     /// </summary>
     public bool CanUsePotal
@@ -136,6 +142,7 @@ class GameManager
         if (Player != null)
         {
             MonoBehaviour.Destroy(Player);
+            Score = 0;
         }
     }
 
