@@ -755,7 +755,7 @@ GameObject:
   - component: {fileID: 222736432810907848}
   - component: {fileID: 114154192945009074}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ArrowImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1713,7 +1713,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114777348716683718}
-        m_MethodName: OnButtonClick
+        m_MethodName: OnUseCraftItemClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1795,6 +1795,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Description of objective
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114583897735523272}
+        m_MethodName: OnQuestChange
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -1983,7 +1994,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114365888058543804}
-        m_MethodName: OnButtonClick
+        m_MethodName: OnUseCraftItemClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2542,7 +2553,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114693317042618390}
-        m_MethodName: OnButtonClick
+        m_MethodName: OnUseItemClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2718,7 +2729,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Current objective text quest three
+          m_StringArgument: Find Location to Place the Ward
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 114873588474788444}
@@ -2729,7 +2740,19 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Description of objective
+          m_StringArgument: Now that I'm here, I need to fight off any enemies and
+            search for the alter the local Mage told me to place the ward.
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114583897735523272}
+        m_MethodName: OnQuestChange
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -3105,7 +3128,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114940213572441936}
-        m_MethodName: OnButtonClick
+        m_MethodName: OnUseItemClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3595,7 +3618,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114213136842082100}
-        m_MethodName: OnButtonClick
+        m_MethodName: OnUseItemClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3819,7 +3842,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Current objective text quest two
+          m_StringArgument: Find and Collect the Weapon
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 114873588474788444}
@@ -3830,7 +3853,19 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Description of objective
+          m_StringArgument: Now that I'm here, I need to fight off any enemies and
+            search for this weapon the local Blacksmith said.
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114583897735523272}
+        m_MethodName: OnQuestChange
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -3921,7 +3956,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114474251894974012}
-        m_MethodName: OnButtonClick
+        m_MethodName: OnUseItemClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4112,7 +4147,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114636788618874478}
-        m_MethodName: OnButtonClick
+        m_MethodName: OnUseCraftItemClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4234,7 +4269,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Current objective text quest one
+          m_StringArgument: Find and Collect the Necklace
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 114873588474788444}
@@ -4245,7 +4280,19 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Description of objective
+          m_StringArgument: Now that I'm here, I need to fight off any enemies and
+            search for this holy necklace for the local Priest.
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114583897735523272}
+        m_MethodName: OnQuestChange
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -4340,7 +4387,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114138530653654570}
-        m_MethodName: OnButtonClick
+        m_MethodName: OnUseItemClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4708,6 +4755,12 @@ MonoBehaviour:
   - {fileID: 114765454420662972}
   - {fileID: 114524557380286022}
   - {fileID: 114109500436118038}
+  craftingPanels:
+  - {fileID: 114027615457631388}
+  - {fileID: 114313807950055704}
+  - {fileID: 114555051225884690}
+  - {fileID: 114196286495058358}
+  craftingButton: {fileID: 114484280146661364}
 --- !u!114 &114656204822806688
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4814,7 +4867,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114477422237206700}
-        m_MethodName: OnButtonClick
+        m_MethodName: OnUseItemClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4928,7 +4981,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114062340975948574}
-        m_MethodName: OnButtonClick
+        m_MethodName: OnUseItemClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5318,7 +5371,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114696627796363208}
-        m_MethodName: OnButtonClick
+        m_MethodName: OnUseCraftItemClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5528,7 +5581,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114708601660318150}
-        m_MethodName: OnButtonClick
+        m_MethodName: OnUseItemClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6041,7 +6094,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114601616055635500}
-        m_MethodName: OnButtonClick
+        m_MethodName: OnUseItemClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6624,7 +6677,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224125444873763618}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6725,7 +6778,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224206678486551482}
-  - {fileID: 224492091473943798}
   - {fileID: 224844071472149080}
   - {fileID: 224299549447135626}
   - {fileID: 224746783590103870}
@@ -6733,6 +6785,7 @@ RectTransform:
   - {fileID: 224072790904600730}
   - {fileID: 224554433197721236}
   - {fileID: 224492694410930450}
+  - {fileID: 224492091473943798}
   m_Father: {fileID: 224626326158273130}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7027,7 +7080,7 @@ RectTransform:
   m_Children:
   - {fileID: 224229325114678012}
   m_Father: {fileID: 224125444873763618}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7350,7 +7403,7 @@ RectTransform:
   m_Children:
   - {fileID: 224635905587021402}
   m_Father: {fileID: 224125444873763618}
-  m_RootOrder: 1
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7368,7 +7421,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224125444873763618}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7394,7 +7447,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.0000051110983}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224520980171084424
@@ -7429,7 +7482,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224125444873763618}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7740,7 +7793,7 @@ RectTransform:
   m_Children:
   - {fileID: 224032716904833524}
   m_Father: {fileID: 224125444873763618}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7868,7 +7921,7 @@ RectTransform:
   m_Children:
   - {fileID: 224832827312633942}
   m_Father: {fileID: 224125444873763618}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7905,7 +7958,7 @@ RectTransform:
   m_Children:
   - {fileID: 224661771887913540}
   m_Father: {fileID: 224125444873763618}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

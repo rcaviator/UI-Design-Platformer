@@ -9,6 +9,7 @@ TagManager:
   - Item
   - PlayerBullet
   - EnemyBullet
+  - Shield
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - EnemyProjectiles
   - MainPlayerView
   - MiniMapView
-  - 
+  - Shield
   - 
   - 
   - 

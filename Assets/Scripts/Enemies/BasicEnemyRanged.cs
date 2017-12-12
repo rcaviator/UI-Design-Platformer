@@ -131,6 +131,7 @@ public class BasicEnemyRanged : Enemy
 
                 //increase score
                 GameManager.Instance.Score += Constants.BASIC_ENEMY_RANGED_SCORE_AMOUNT;
+                UIManager.Instance.PlayerUICanvas.ScoreChange(true);
 
                 Destroy(gameObject);
             }
@@ -152,6 +153,13 @@ public class BasicEnemyRanged : Enemy
             GameManager.Instance.Player.GetComponent<Player>().PlayerHealth -= Constants.BASIC_ENEMY_RANGED_DAMAGE_TO_PLAYER;
             //Instantiate(explosion, transform.position, Quaternion.identity);
             AudioManager.Instance.PlayGamePlaySoundEffect(GamePlaySoundEffect.EnemyDeath);
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.tag == "Shield")
+        {
+            Instantiate(explosion, transform.position, Quaternion.identity);
+            GameManager.Instance.Score += Constants.BASIC_ENEMY_MELEE_SCORE_AMOUNT;
+            UIManager.Instance.PlayerUICanvas.ScoreChange(true);
             Destroy(gameObject);
         }
     }

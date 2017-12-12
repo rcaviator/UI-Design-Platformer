@@ -23,8 +23,7 @@ public class MageScript : MonoBehaviour
         {
             if (InputManager.Instance.GetButtonDown(PlayerAction.Interact))
             {
-                //Debug.Log("mage quest dialog");
-                UIManager.Instance.CreateQuestDialog("Mage:", "Deliver Magical Ward", "Go place this magical ward.", GetComponent<SpriteRenderer>().sprite);
+                UIManager.Instance.CreateQuestDialog("Mage:", "Deliver Magical Ward", "Theres been reports of deamons taking over the mountain and causing lots of trouble for the mountain people. I have a magical ward that should stop them. Can you go place it for me?", GetComponent<SpriteRenderer>().sprite);
             }
         }
     }

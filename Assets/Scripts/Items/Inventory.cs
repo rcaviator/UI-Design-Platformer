@@ -28,13 +28,13 @@ public class Inventory
     public void AddItem(Item newItem)
     {
         //if the item type is in the dictionary, add it to the internal list
-        if (inventory.ContainsKey(newItem.itemType))
+        if (inventory.ContainsKey(newItem.TheItem))
         {
-            inventory[newItem.itemType].Add(newItem);
+            inventory[newItem.TheItem].Add(newItem);
         }
         else
         {
-            inventory.Add(newItem.itemType, new List<Item>() { newItem });
+            inventory.Add(newItem.TheItem, new List<Item>() { newItem });
         }
     }
 
@@ -46,11 +46,11 @@ public class Inventory
     public Item RemoveItem(Item newItem)
     {
         //if the item is in the dictionary and the count is not 0, remove it from the internal list
-        if (inventory.ContainsKey(newItem.itemType))
+        if (inventory.ContainsKey(newItem.TheItem))
         {
-            if (inventory[newItem.itemType].Count != 0)
+            if (inventory[newItem.TheItem].Count != 0)
             {
-                inventory[newItem.itemType].Remove(newItem);
+                inventory[newItem.TheItem].Remove(newItem);
                 return newItem;
             }
             else
@@ -122,7 +122,7 @@ public class Inventory
 /// </summary>
 public enum ItemType
 {
-    None, HealthPotion, /*PizzaCutterQuestItem, HolyGrailQuestItem, */EnergyShield, FireSpray,
+    None, HealthPotion, EnergyShield, FireSpray, HolyNecklace, Ward,
     KeyPartPickupHandle, KeyPartPickupShaft, KeyPartPickupBit, Key
 }
 
@@ -131,7 +131,6 @@ public enum ItemType
 /// </summary>
 public class Item
 {
-    public ItemType itemType;
     //durability, stats, min-max lvl requirements, type of damage, enchants, etc
 
     /// <summary>
@@ -140,40 +139,57 @@ public class Item
     /// <param name="item">item</param>
     public Item(ItemType item)
     {
-        itemType = item;
+        //set the item type
+        TheItem = item;
 
         //set item properties based on item type
-        if (item == ItemType.HealthPotion)
+        switch (item)
         {
-            HealthRestored = 50f;
-        }
-        else if (item == ItemType.EnergyShield)
-        {
-            Durability = 100f;
-            ItemTimer = 10f;
-        }
-        else if (item == ItemType.FireSpray)
-        {
-            NumberOfUses = 10;
-            Damage = 10f;
-        }
-        else if (item == ItemType.KeyPartPickupHandle)
-        {
-            //Debug.Log("key part handle");
-        }
-        else if (item == ItemType.KeyPartPickupShaft)
-        {
-            //Debug.Log("key part shaft");
-        }
-        else if (item == ItemType.KeyPartPickupBit)
-        {
-            //Debug.Log("key part bit");
-        }
-        else if (item == ItemType.Key)
-        {
+            case ItemType.None:
+                break;
+            case ItemType.HealthPotion:
+                HealthRestored = Constants.ITEM_HEALTH_POTION_RESTORATION;
+                break;
+            case ItemType.EnergyShield:
+                ItemTimer = Constants.SHIELD_DURATION;
+                break;
+            case ItemType.FireSpray:
 
+                break;
+            case ItemType.HolyNecklace:
+
+                break;
+            case ItemType.Ward:
+
+                break;
+            case ItemType.KeyPartPickupHandle:
+                IsCraftingItem = true;
+                break;
+            case ItemType.KeyPartPickupShaft:
+                IsCraftingItem = true;
+                break;
+            case ItemType.KeyPartPickupBit:
+                IsCraftingItem = true;
+                break;
+            case ItemType.Key:
+
+                break;
+            default:
+                break;
         }
     }
+
+    /// <summary>
+    /// The type of item
+    /// </summary>
+    public ItemType TheItem
+    { get; set; }
+
+    /// <summary>
+    /// Is the item used in crafting
+    /// </summary>
+    public bool IsCraftingItem
+    { get; set; }
 
     /// <summary>
     /// Item's number of uses

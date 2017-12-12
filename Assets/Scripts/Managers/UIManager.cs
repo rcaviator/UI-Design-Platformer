@@ -18,14 +18,17 @@ class UIManager
     //dictionary for inventory ui images
     public Dictionary<ItemType, Sprite> inventoryImages;
 
-    //pause game menu
-    PauseGameMenu pauseMenu;
+    ////pause game menu
+    //PauseGameMenu pauseMenu;
 
-    //main player menu
-    CharacterMenuCanvas characterDisplay;
+    ////main player menu
+    //CharacterMenuCanvas characterDisplay;
 
-    //quest menu
-    QuestUI questUI;
+    ////main hud
+    //UICanvas uiCanvas;
+
+    ////quest menu
+    //QuestUI questUI;
 
     #endregion
 
@@ -61,14 +64,17 @@ class UIManager
     }
 
     public CharacterMenuCanvas PlayerCharacterMenuCanvas
-    { get; private set; }
+    { get; set; }
 
 
     public PauseGameMenu PauseMenu
-    { get; private set; }
+    { get; set; }
+
+    public UICanvas PlayerUICanvas
+    { get; set; }
 
     public QuestUI QuestDialog
-    { get; private set; }
+    { get; set; }
 
     #endregion
 
