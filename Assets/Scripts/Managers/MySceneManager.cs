@@ -377,6 +377,11 @@ class MySceneManager
         }
 
         #endregion
+
+        //if (UIManager.Instance.PlayerUICanvas)
+        //{
+        //    UIManager.Instance.PlayerUICanvas.Start();
+        //}
     }
 
 

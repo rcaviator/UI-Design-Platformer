@@ -54,6 +54,8 @@ class QuestManager
             { Quests.Quest2, new Quest("Collect Legendary Weapon", Quests.Quest2) },
             { Quests.Quest3, new Quest("Deliver Magical Ward", Quests.Quest3) },
         };
+
+        CurrentQuestEnum = Quests.MainQuest;
     }
 
     #endregion
@@ -77,6 +79,9 @@ class QuestManager
 
     public Dictionary<Quests, Quest> GetCompletedQuests
     { get { return completedQuests; } }
+
+    public Quests CurrentQuestEnum
+    { get; set; }
 
     #endregion
 

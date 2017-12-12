@@ -24,29 +24,33 @@ public class ScoreText : MonoBehaviour
     {
         scoreText.text = "Score: " + GameManager.Instance.Score.ToString();
 
-        //if (increaseScale)
-        //{
-        //    if (timer < animationTimer)
-        //    {
-        //        timer += Time.deltaTime;
-        //        GetComponent<RectTransform>().localScale = new Vector3(GetComponent<RectTransform>().localScale.x + (scaleRate * Time.deltaTime), GetComponent<RectTransform>().localScale.y + (scaleRate * Time.deltaTime), GetComponent<RectTransform>().localScale.z);
-        //        scoreText.color = Color.red;
-        //    }
-        //}
-        //else
-        //{
-        //    if (timer > 0)
-        //    {
-        //        timer -= Time.deltaTime;
-        //        GetComponent<RectTransform>().localScale = new Vector3(GetComponent<RectTransform>().localScale.x - (scaleRate * Time.deltaTime), GetComponent<RectTransform>().localScale.y - (scaleRate * Time.deltaTime), GetComponent<RectTransform>().localScale.z);
-        //        scoreText.color = Color.white;
-        //    }
-        //    else
-        //    {
-        //        timer = 0;
-        //        GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, GetComponent<RectTransform>().localScale.z);
-        //    }
-        //}
+        if (increaseScale)
+        {
+            if (timer < animationTimer)
+            {
+                timer += Time.deltaTime;
+                GetComponent<RectTransform>().localScale = new Vector3(GetComponent<RectTransform>().localScale.x + (scaleRate * Time.deltaTime), GetComponent<RectTransform>().localScale.y + (scaleRate * Time.deltaTime), GetComponent<RectTransform>().localScale.z);
+                scoreText.color = Color.red;
+            }
+            else
+            {
+                increaseScale = false;
+            }
+        }
+        else
+        {
+            if (timer > 0)
+            {
+                timer -= Time.deltaTime;
+                GetComponent<RectTransform>().localScale = new Vector3(GetComponent<RectTransform>().localScale.x - (scaleRate * Time.deltaTime), GetComponent<RectTransform>().localScale.y - (scaleRate * Time.deltaTime), GetComponent<RectTransform>().localScale.z);
+                scoreText.color = Color.white;
+            }
+            else
+            {
+                timer = 0;
+                GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, GetComponent<RectTransform>().localScale.z);
+            }
+        }
     }
 
     public void ScoreChange(bool size)

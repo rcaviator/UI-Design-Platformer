@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class UseItemScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler, ISelectHandler, IDeselectHandler
+public class UseItemScript : MonoBehaviour, IPointerEnterHandler, ISelectHandler, IDeselectHandler
 {
     GameObject frameImageReference;
     GameObject itemFrame;
@@ -12,9 +12,11 @@ public class UseItemScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField]
     bool isCraftButton;
 
-    bool craftingWasClickedOn = false;
+    //bool craftingWasClickedOn = false;
 
-    static int craftItemCount = 0;
+    //static int craftItemCount = 0;
+
+    bool craftableItemSelected = false;
 
     private void Start()
     {
@@ -23,123 +25,60 @@ public class UseItemScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         itemFrame.SetActive(false);
     }
 
-    private void Update()
+    public void SetCraftableItemSelect(bool select)
     {
-        if (craftItemCount >= 3 && isCraftButton)
+        craftableItemSelected = select;
+        if (!craftableItemSelected)
         {
-            //isCraftButton = false;
-            GetComponent<Button>().interactable = true;
+            itemFrame.SetActive(false);
         }
     }
 
-    public void OnButtonClick()
+    public void OnUseItemClick()
     {
         UIManager.Instance.PlayerCharacterMenuCanvas.UseItem(gameObject.GetComponent<Image>());
+    }
 
-        //Debug.Log("inventory pointer up");
-        if (gameObject.GetComponent<Image>().sprite != null)
+    public void OnUseCraftItemClick()
+    {
+        if (GetComponent<Image>().color == Color.white)
         {
-            if (!craftingWasClickedOn)
-            {
-                if (gameObject.GetComponent<Image>().sprite.name == "KeyHandle")
-                {
-                    craftItemCount++;
-                    craftingWasClickedOn = true;
-                    //itemFrame.SetActive(true);
-                    GetComponent<Button>().Select();
-                }
-                else if (gameObject.GetComponent<Image>().sprite.name == "KeyShaft")
-                {
-                    craftItemCount++;
-                    craftingWasClickedOn = true;
-                    //itemFrame.SetActive(true);
-                    GetComponent<Button>().Select();
-                }
-                else if (gameObject.GetComponent<Image>().sprite.name == "KeyBit")
-                {
-                    craftItemCount++;
-                    craftingWasClickedOn = true;
-                    //itemFrame.SetActive(true);
-                    GetComponent<Button>().Select();
-                }
-            }
+            craftableItemSelected = true;
+            UIManager.Instance.PlayerCharacterMenuCanvas.UseCraftItem(gameObject.GetComponent<Image>());
+            AudioManager.Instance.PlayUISoundEffect(UISoundEffect.GameSelect);
+        }
+        else
+        {
+            AudioManager.Instance.PlayUISoundEffect(UISoundEffect.GameExit);
         }
     }
 
     public void OnCraftClick()
     {
-        Debug.Log("Craft item!");
-        //craft key
-        itemFrame.SetActive(false);
-        craftingWasClickedOn = false;
-        craftItemCount = 0;
-
-        GameManager.Instance.Player.GetComponent<Player>().PlayerInventory.RemoveFirstItemOfType(ItemType.KeyPartPickupHandle);
-        GameManager.Instance.Player.GetComponent<Player>().PlayerInventory.RemoveFirstItemOfType(ItemType.KeyPartPickupShaft);
-        GameManager.Instance.Player.GetComponent<Player>().PlayerInventory.RemoveFirstItemOfType(ItemType.KeyPartPickupBit);
-        GameManager.Instance.Player.GetComponent<Player>().PlayerInventory.AddItem(new Item(ItemType.Key));
-        
-        UIManager.Instance.PlayerCharacterMenuCanvas.ReStartUI();
+        UIManager.Instance.PlayerCharacterMenuCanvas.CraftItem();
+        AudioManager.Instance.PlayUISoundEffect(UISoundEffect.GameStart);
     }
 
     //unity events
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!isCraftButton)
-        {
-            //Debug.Log("inventory pointer enter");
-            //itemFrame.SetActive(true);
-            GetComponent<Button>().Select();
-        }
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (!isCraftButton)
-        {
-            if (!craftingWasClickedOn)
-            {
-                itemFrame.SetActive(false);
-                //GetComponent<Button>().Select();
-            }
-        }
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        //Debug.Log("inventory pointer up");
-        if (gameObject.GetComponent<Image>().sprite != null)
-        {
-            if (!craftingWasClickedOn)
-            {
-                if (gameObject.GetComponent<Image>().sprite.name == "KeyHandle")
-                {
-                    craftItemCount++;
-                    craftingWasClickedOn = true;
-                }
-                else if (gameObject.GetComponent<Image>().sprite.name == "KeyShaft")
-                {
-                    craftItemCount++;
-                    craftingWasClickedOn = true;
-                }
-                else if (gameObject.GetComponent<Image>().sprite.name == "KeyBit")
-                {
-                    craftItemCount++;
-                    craftingWasClickedOn = true;
-                }
-            }
-        }
-        
-        //Debug.Log(craftItemCount);
+        GetComponent<Button>().Select();
     }
 
     public void OnSelect(BaseEventData data)
     {
-        itemFrame.SetActive(true);
+        if (!isCraftButton)
+        {
+            itemFrame.SetActive(true);
+        }
+        AudioManager.Instance.PlayUISoundEffect(UISoundEffect.MenuButtonFocused);
     }
 
     public void OnDeselect(BaseEventData data)
     {
-        itemFrame.SetActive(false);
+        if (!craftableItemSelected)
+        {
+            itemFrame.SetActive(false);
+        }
     }
 }

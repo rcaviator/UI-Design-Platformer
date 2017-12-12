@@ -26,8 +26,7 @@ public class PriestScript : MonoBehaviour
             {
                 if (InputManager.Instance.GetButtonDown(PlayerAction.Interact))
                 {
-                    //Debug.Log("priest quest dialog");
-                    UIManager.Instance.CreateQuestDialog("Priest:", "Fetch Lost Relic", "Go get me necklace", GetComponent<SpriteRenderer>().sprite);
+                    UIManager.Instance.CreateQuestDialog("Priest:", "Fetch Lost Relic", "I haven't seen this kind of demonic power before! Legends say there is a holy necklace in the desert that should help us resist them. Go get it and bring it back here. We'll see what we can do with it.", GetComponent<SpriteRenderer>().sprite);
                 }
             }
         }

@@ -77,7 +77,7 @@ public class Shield : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "EnemyBullet")
+        if (collision.gameObject.tag == "EnemyBullet")
         {
             Instantiate(explosion, collision.gameObject.transform.position, Quaternion.identity);
             Destroy(collision.gameObject);

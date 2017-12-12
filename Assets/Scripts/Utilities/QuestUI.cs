@@ -49,6 +49,7 @@ public class QuestUI : MonoBehaviour
         questTitle.text = title;
         questDialog.text = dialog;
         questNPC.sprite = npc;
+        AudioManager.Instance.PlayUISoundEffect(UISoundEffect.GamePaused);
     }
 
     public void OnQuestAccept()
