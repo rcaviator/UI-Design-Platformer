@@ -32,6 +32,8 @@ class GameManager
     /// </summary>
     private GameManager()
     {
+        Debug.Log(Application.platform.ToString());
+
         // Creates the object that calls GM's Update method
         Object.DontDestroyOnLoad(new GameObject("gmUpdater", typeof(Updater)));
 

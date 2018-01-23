@@ -50,7 +50,7 @@ public class PortalScript : MonoBehaviour
                 showButton = true;
             }
 
-            if (GameManager.Instance.CanUsePotal && InputManager.Instance.GetAxisRaw(PlayerAction.MoveVertical) > 0)
+            if (GameManager.Instance.CanUsePotal && (InputManager.Instance.GetAxisRaw(PlayerAction.MoveVertical) > 0 || GameManager.Instance.Player.GetComponent<Player>().MobileUsePortal))
             {
                 GameManager.Instance.CanUsePotal = false;
                 UsePortal();

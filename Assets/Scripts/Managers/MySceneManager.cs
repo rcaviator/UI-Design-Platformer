@@ -64,7 +64,7 @@ class MySceneManager
         //initiallize scene dictionary
         sceneDict = new Dictionary<Scenes, string>()
         {
-            { Scenes.MainMenu, "MainMenu" },
+            { Scenes.MainMenu, "MainMenu"},
             { Scenes.Credits, "Credits" },
             { Scenes.Options, "Options" },
             { Scenes.HowToPlay, "HowToPlay" },
@@ -172,78 +172,8 @@ class MySceneManager
         //update event system axis
         InputManager.Instance.UpdateEventSystemAxis();
 
-        //hold reference to current scene as enum
-        //Scenes currScene;
-
-        #region Get scene reference
-
-        //get scene value and set scene enum
-        if (scene.name == Scenes.MainMenu.ToString())
-        {
-            CurrentScene = Scenes.MainMenu;
-        }
-        else if (scene.name == Scenes.Credits.ToString())
-        {
-            CurrentScene = Scenes.Credits;
-        }
-        else if (scene.name == Scenes.Options.ToString())
-        {
-            CurrentScene = Scenes.Options;
-        }
-        else if (scene.name == Scenes.HowToPlay.ToString())
-        {
-            CurrentScene = Scenes.HowToPlay;
-        }
-        else if (scene.name == Scenes.Tutorial.ToString())
-        {
-            CurrentScene = Scenes.Tutorial;
-        }
-        else if (scene.name == Scenes.Village.ToString())
-        {
-            CurrentScene = Scenes.Village;
-        }
-        else if (scene.name == Scenes.Quest1.ToString())
-        {
-            CurrentScene = Scenes.Quest1;
-        }
-        else if (scene.name == Scenes.Quest2.ToString())
-        {
-            CurrentScene = Scenes.Quest2;
-        }
-        else if (scene.name == Scenes.Quest3.ToString())
-        {
-            CurrentScene = Scenes.Quest3;
-        }
-        else if (scene.name == Scenes.QuestMain.ToString())
-        {
-            CurrentScene = Scenes.QuestMain;
-        }
-        else if (scene.name == Scenes.Boss1.ToString())
-        {
-            CurrentScene = Scenes.Boss1;
-        }
-        else if (scene.name == Scenes.BossFinal.ToString())
-        {
-            CurrentScene = Scenes.BossFinal;
-        }
-        else if (scene.name == Scenes.TestLevel.ToString())
-        {
-            CurrentScene = Scenes.TestLevel;
-        }
-        else if (scene.name == Scenes.Defeat.ToString())
-        {
-            CurrentScene = Scenes.Defeat;
-        }
-        else if (scene.name == Scenes.Victory.ToString())
-        {
-            CurrentScene = Scenes.Victory;
-        }
-        else
-        {
-            CurrentScene = Scenes.None;
-        }
-
-        #endregion
+        //get scene reference
+        CurrentScene = sceneDict.Keys.First(t => sceneDict[t] == scene.name);
 
         #region Adjust soundtrack
 
@@ -377,81 +307,13 @@ class MySceneManager
         }
 
         #endregion
-
-        //if (UIManager.Instance.PlayerUICanvas)
-        //{
-        //    UIManager.Instance.PlayerUICanvas.Start();
-        //}
     }
 
 
     void OnLevelUnloaded(Scene scene)
     {
-        //get scene value and set scene enum
-        if (scene.name == Scenes.MainMenu.ToString())
-        {
-            PreviousScene = Scenes.MainMenu;
-        }
-        else if (scene.name == Scenes.Credits.ToString())
-        {
-            PreviousScene = Scenes.Credits;
-        }
-        else if (scene.name == Scenes.Options.ToString())
-        {
-            PreviousScene = Scenes.Options;
-        }
-        else if (scene.name == Scenes.HowToPlay.ToString())
-        {
-            PreviousScene = Scenes.HowToPlay;
-        }
-        else if (scene.name == Scenes.Tutorial.ToString())
-        {
-            PreviousScene = Scenes.Tutorial;
-        }
-        else if (scene.name == Scenes.Village.ToString())
-        {
-            PreviousScene = Scenes.Village;
-        }
-        else if (scene.name == Scenes.Quest1.ToString())
-        {
-            PreviousScene = Scenes.Quest1;
-        }
-        else if (scene.name == Scenes.Quest2.ToString())
-        {
-            PreviousScene = Scenes.Quest2;
-        }
-        else if (scene.name == Scenes.Quest3.ToString())
-        {
-            PreviousScene = Scenes.Quest3;
-        }
-        else if (scene.name == Scenes.QuestMain.ToString())
-        {
-            PreviousScene = Scenes.QuestMain;
-        }
-        else if (scene.name == Scenes.Boss1.ToString())
-        {
-            PreviousScene = Scenes.Boss1;
-        }
-        else if (scene.name == Scenes.BossFinal.ToString())
-        {
-            PreviousScene = Scenes.BossFinal;
-        }
-        else if (scene.name == Scenes.TestLevel.ToString())
-        {
-            PreviousScene = Scenes.TestLevel;
-        }
-        else if (scene.name == Scenes.Defeat.ToString())
-        {
-            PreviousScene = Scenes.Defeat;
-        }
-        else if (scene.name == Scenes.Victory.ToString())
-        {
-            PreviousScene = Scenes.Victory;
-        }
-        else
-        {
-            PreviousScene = Scenes.None;
-        }
+        //get scene reference
+        PreviousScene = sceneDict.Keys.First(p => sceneDict[p] == scene.name);
     }
 
     /// <summary>

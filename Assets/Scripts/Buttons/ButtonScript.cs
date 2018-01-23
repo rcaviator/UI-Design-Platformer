@@ -101,4 +101,27 @@ public class ButtonScript : MonoBehaviour, IPointerEnterHandler, ISelectHandler,
             InputManager.Instance.ChangeToArrows();
         }
     }
+
+    public void OnInvetoryButtonClick()
+    {
+        UIManager.Instance.CreateCharacterMenu();
+        //UIManager.Instance.PlayerCharacterMenuCanvas.ChangeMenu("Inventory");
+    }
+
+    public void OnQuestButtonClick()
+    {
+        UIManager.Instance.CreateCharacterMenu();
+        UIManager.Instance.PlayerCharacterMenuCanvas.ChangeMenu("Quests");
+    }
+
+    public void OnGameMenuButtonClick()
+    {
+        UIManager.Instance.CreatePauseGameMenu();
+    }
+
+    //public void PlayerFire()
+    //{
+        
+    //    //GameManager.Instance.Player.GetComponent<Player>()
+    //}
 }

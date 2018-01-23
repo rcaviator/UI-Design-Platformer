@@ -46,6 +46,7 @@ public class Player : PauseableObject
     float maxAutoFireTimer = 0.15f;
     float autoFireTimer = 0f;
     bool canShoot = false;
+    //bool buttonPressedShoot = false;
 
     #endregion
 
@@ -128,6 +129,22 @@ public class Player : PauseableObject
     public bool PausePlayer
     { get; set; }
 
+
+    public bool InputPlayerShoot
+    { get; set; }
+
+    public bool MobileMoveLeft
+    { get; set; }
+
+    public bool MobileMoveRight
+    { get; set; }
+
+    public bool MobileJump
+    { get; set; }
+
+    public bool MobileUsePortal
+    { get; set; }
+
     /// <summary>
     /// the player health
     /// </summary>
@@ -178,7 +195,7 @@ public class Player : PauseableObject
             //the running state
             case PlayerState.Running:
                 //apply running motion based on direction
-                if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) > 0)
+                if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) > 0 || MobileMoveRight)
                 {
                     facingLeft = false;
                     if (rBody.velocity.x < 0f)
@@ -188,7 +205,7 @@ public class Player : PauseableObject
                     currentHorizontalSpeed = Mathf.Clamp(rBody.velocity.x + Constants.PLAYER_HORIZONTAL_ACCELERATION * Time.deltaTime, -Constants.PLAYER_MAX_HORIZONTAL_SPEED, Constants.PLAYER_MAX_HORIZONTAL_SPEED);
                     rBody.velocity = new Vector2(currentHorizontalSpeed, rBody.velocity.y);
                 }
-                else if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) < 0)
+                else if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) < 0 || MobileMoveLeft)
                 {
                     facingLeft = true;
                     if (rBody.velocity.x > 0f)
@@ -230,13 +247,13 @@ public class Player : PauseableObject
             //the floating state
             case PlayerState.Floating:
                 //apply floating motion based on direction
-                if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) > 0f)
+                if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) > 0f || MobileMoveRight)
                 {
                     facingLeft = false;
                     currentHorizontalSpeed = Mathf.Clamp(rBody.velocity.x + Constants.PLAYER_HORIZONTAL_ACCELERATION * Time.deltaTime, -Constants.PLAYER_MAX_HORIZONTAL_SPEED, Constants.PLAYER_MAX_HORIZONTAL_SPEED);
                     rBody.velocity = new Vector2(currentHorizontalSpeed, rBody.velocity.y);
                 }
-                else if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) < 0f)
+                else if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) < 0f || MobileMoveLeft)
                 {
                     facingLeft = true;
                     currentHorizontalSpeed = Mathf.Clamp(rBody.velocity.x - Constants.PLAYER_HORIZONTAL_ACCELERATION * Time.deltaTime, -Constants.PLAYER_MAX_HORIZONTAL_SPEED, Constants.PLAYER_MAX_HORIZONTAL_SPEED);
@@ -255,13 +272,13 @@ public class Player : PauseableObject
             //    break;
             case PlayerState.Hurt:
                 //apply running motion based on direction
-                if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) > 0)
+                if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) > 0 || MobileMoveRight)
                 {
                     facingLeft = false;
                     currentHorizontalSpeed = Mathf.Clamp(rBody.velocity.x + Constants.PLAYER_HORIZONTAL_ACCELERATION * Time.deltaTime, -Constants.PLAYER_MAX_HORIZONTAL_SPEED, Constants.PLAYER_MAX_HORIZONTAL_SPEED);
                     rBody.velocity = new Vector2(currentHorizontalSpeed, rBody.velocity.y);
                 }
-                else if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) < 0)
+                else if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) < 0 || MobileMoveLeft)
                 {
                     facingLeft = true;
                     currentHorizontalSpeed = Mathf.Clamp(rBody.velocity.x - Constants.PLAYER_HORIZONTAL_ACCELERATION * Time.deltaTime, -Constants.PLAYER_MAX_HORIZONTAL_SPEED, Constants.PLAYER_MAX_HORIZONTAL_SPEED);
@@ -295,7 +312,8 @@ public class Player : PauseableObject
         }
 
         //attack
-        if (InputManager.Instance.GetButton(PlayerAction.FirePrimary) && canShoot)
+        //InputManager.Instance.GetButton(PlayerAction.FirePrimary)
+        if (InputPlayerShoot && canShoot)
         {
             BasicAttack();
             canShoot = false;
@@ -388,12 +406,12 @@ public class Player : PauseableObject
         {
             case PlayerState.Idle:
                 //running
-                if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) > 0 || InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) < 0 && isGrounded)
+                if ((InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) > 0 || MobileMoveRight) || (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) < 0 || MobileMoveLeft) && isGrounded)
                 {
                     playerState = PlayerState.Running;
                 }
                 //jumping
-                else if (InputManager.Instance.GetButton(PlayerAction.Jump) && isGrounded)
+                else if ((InputManager.Instance.GetButton(PlayerAction.Jump) || MobileJump) && isGrounded)
                 {
                     playerState = PlayerState.Jumping;
                 }
@@ -407,12 +425,12 @@ public class Player : PauseableObject
 
             case PlayerState.Running:
                 //idle
-                if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) == 0f)
+                if ((InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) == 0f) && (!MobileMoveLeft && !MobileMoveRight))
                 {
                     playerState = PlayerState.Idle;
                 }
                 //jumping
-                else if (InputManager.Instance.GetButtonDown(PlayerAction.Jump))
+                else if (InputManager.Instance.GetButtonDown(PlayerAction.Jump) || MobileJump)
                 {
                     playerState = PlayerState.Jumping;
                 }
@@ -448,17 +466,17 @@ public class Player : PauseableObject
 
             case PlayerState.Landing:
                 //idle
-                if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) == 0f)
+                if ((InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) == 0f) || (!MobileMoveLeft && !MobileMoveRight))
                 {
                     playerState = PlayerState.Idle;
                 }
                 //running
-                else if (InputManager.Instance.GetAxis(PlayerAction.MoveHorizontal) > 0 || InputManager.Instance.GetAxis(PlayerAction.MoveHorizontal) < 0 && isGrounded)
+                else if ((InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) > 0 || MobileMoveRight) || (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) < 0 || MobileMoveLeft) && isGrounded)
                 {
                     playerState = PlayerState.Running;
                 }
                 //jumping
-                else if (InputManager.Instance.GetButton(PlayerAction.Jump) && isGrounded)
+                else if ((InputManager.Instance.GetButton(PlayerAction.Jump) || MobileJump) && isGrounded)
                 {
                     playerState = PlayerState.Jumping;
                 }
@@ -474,17 +492,17 @@ public class Player : PauseableObject
             //    break;
             case PlayerState.Hurt:
                 //idle
-                if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) == 0f)
+                if (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) == 0f || (!MobileMoveLeft && !MobileMoveRight))
                 {
                     playerState = PlayerState.Idle;
                 }
                 //running
-                else if (InputManager.Instance.GetAxis(PlayerAction.MoveHorizontal) > 0 || InputManager.Instance.GetAxis(PlayerAction.MoveHorizontal) < 0 && isGrounded)
+                else if ((InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) > 0 || MobileMoveRight) || (InputManager.Instance.GetAxisRaw(PlayerAction.MoveHorizontal) < 0 || MobileMoveLeft) && isGrounded)
                 {
                     playerState = PlayerState.Running;
                 }
                 //jumping
-                else if (InputManager.Instance.GetButton(PlayerAction.Jump) && isGrounded)
+                else if ((InputManager.Instance.GetButton(PlayerAction.Jump) || MobileJump) && isGrounded)
                 {
                     playerState = PlayerState.Jumping;
                 }
