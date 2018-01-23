@@ -161,5 +161,14 @@ class UIManager
         }
     }
 
+    public void CreatePauseGameMenu()
+    {
+        if (!PauseMenu)
+        {
+            CloseUI();
+            PauseMenu = MonoBehaviour.Instantiate(Resources.Load<PauseGameMenu>("Prefabs/PauseMenuCanvas"), Vector3.zero, Quaternion.identity);
+        }
+    }
+
     #endregion
 }

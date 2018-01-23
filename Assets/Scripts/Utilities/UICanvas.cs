@@ -19,11 +19,11 @@ public class UICanvas : MonoBehaviour
         UIManager.Instance.PlayerUICanvas = this;
 
         //set references
-        locationText = transform.GetChild(0).transform.GetChild(0).GetComponent<Text>();
-        questText = transform.GetChild(1).transform.GetChild(0).GetComponent<Text>();
-        viewQuestsButton = transform.GetChild(1).transform.GetChild(1).GetComponent<Button>();
-        controllsText = transform.GetChild(2).transform.GetChild(0).GetComponent<Text>();
-        scoreText = transform.GetChild(3).transform.GetChild(0).GetComponent<Text>();
+        locationText = transform.GetChild(1).transform.GetChild(0).GetComponent<Text>();
+        questText = transform.GetChild(2).transform.GetChild(0).GetComponent<Text>();
+        viewQuestsButton = transform.GetChild(2).transform.GetChild(1).GetComponent<Button>();
+        controllsText = transform.GetChild(3).transform.GetChild(0).GetComponent<Text>();
+        scoreText = transform.GetChild(4).transform.GetChild(0).GetComponent<Text>();
 
         //set location text
         switch (MySceneManager.Instance.CurrentScene)
@@ -127,5 +127,10 @@ public class UICanvas : MonoBehaviour
     {
         questText.text = questName + "\n" +
                     questObjective;
+    }
+
+    public void PlayerFire()
+    {
+        GameManager.Instance.Player.GetComponent<Player>().InputPlayerShoot = true;
     }
 }
